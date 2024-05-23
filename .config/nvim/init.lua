@@ -171,6 +171,11 @@ function OpenMainCppFilesSorted()
 	--print('All main.cpp files opened in NeoVim tabs with CWD set and sorted, returning to root.')
 end
 
+-- Set up the autocommand to call the function before saving C/C++ files
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = {"*.c", "*.cpp"},  -- Pattern for C/C++ files
+  callback = myformat_buffer
+})
 -- C/C++ customizations
 vim.cmd([[
 augroup CppCustomizations
