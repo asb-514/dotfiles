@@ -32,7 +32,7 @@ autocmd Filetype cpp,c inoremap <F6> <ESC>:w<CR>:vert terminal ++shell ++cols=60
 autocmd FileType cpp,c setlocal equalprg=clang-format\ -style=WebKit
 autocmd FileType cpp setlocal makeprg=g\+\+\ %\ \-g\ \-std\=c\+\+20\ \-Wall
 inoremap jk <Esc>
-vnoremap jk <Esc>
+"vnoremap jk <Esc>
 
 
 
@@ -58,7 +58,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger = '<CR>'
+let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 "let g:UltiSnipsJumpForwardTrigger="<c-b>"
