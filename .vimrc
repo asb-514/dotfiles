@@ -1,6 +1,6 @@
-colorscheme jellybeans
+"colorscheme jellybeans
 
-"colorscheme slate
+colorscheme slate
 "colo sorbet
 highlight Normal cterm=bold
 
@@ -67,12 +67,14 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsEditSplit="vertical"
 
 Plug 'honza/vim-snippets'
+Plug 'MunifTanjim/nui.nvim'        " it's a dependency
+Plug 'xeluxee/competitest.nvim'
 
 call plug#end()
 ":PlugInstall
 
 let mapleader = "\<Space>"
-noremap <Leader>e :edit 
+noremap <Leader>e :Explore<cr>
 noremap <Leader>n :vs<cr>
 noremap <Leader>wq :wq<CR>
 noremap <Leader>q :q<CR>
