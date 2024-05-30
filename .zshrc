@@ -168,3 +168,4 @@ export PATH="$(brew --prefix)/opt/util-linux/sbin:$(brew --prefix)/opt/util-linu
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
