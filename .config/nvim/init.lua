@@ -1,4 +1,5 @@
 --vim.cmd([[colo slate]])
+--
 -- lazy plugin 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -176,8 +177,8 @@ end
 
 -- Set up the autocommand to call the function before saving C/C++ files
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = {"*.c", "*.cpp"},  -- Pattern for C/C++ files
-  callback = myformat_buffer
+	pattern = {"*.c", "*.cpp"},  -- Pattern for C/C++ files
+	callback = myformat_buffer
 })
 -- C/C++ customizations
 vim.cmd([[
@@ -226,25 +227,25 @@ vim.cmd [[
 " Return to last edit position when opening files (You want this!)
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
-augroup redhat
-autocmd!
-" When editing a file, always jump to the last cursor position
-autocmd BufReadPost *
-\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-\   exe "normal! g'\"" |
-\ endif
-augroup END
-endif
-]]
--- Define a function to update the status line for specific file types
-function myupdate_statusline()
-	if vim.bo.filetype == "CompetiTest" then
-		vim.wo.statusline = " "
+	augroup redhat
+	autocmd!
+	" When editing a file, always jump to the last cursor position
+	autocmd BufReadPost *
+	\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+	\   exe "normal! g'\"" |
+	\ endif
+	augroup END
+	endif
+	]]
+	-- Define a function to update the status line for specific file types
+	function myupdate_statusline()
+		if vim.bo.filetype == "CompetiTest" then
+			vim.wo.statusline = " "
+		end
 	end
-end
 
--- Autocmd to call the function for specific file types
-vim.cmd[[
+	-- Autocmd to call the function for specific file types
+	vim.cmd[[
 	augroup UpdateStatusline
 	autocmd!
 	autocmd BufEnter,BufWinEnter * lua myupdate_statusline()
@@ -252,473 +253,486 @@ vim.cmd[[
 	]]
 
 
-local plugins = {
-	{
-		'rktjmp/lush.nvim',
-		lazy = true,
-		priority = 1000,
-	},
-	{
-		'metalelf0/jellybeans-nvim',
-		lazy = false,
-		priority = 1000,
-		dependencies = {'rktjmp/lush.nvim',},
-		config = function()
-			vim.opt.background = "dark"
-			vim.opt.termguicolors = true
-			vim.cmd.colorscheme 'jellybeans-nvim'
-		end,
-	}, 
+	local plugins = {
+		{
+			'rktjmp/lush.nvim',
+			lazy = true,
+			priority = 1000,
+		},
+		{
+			'metalelf0/jellybeans-nvim',
+			lazy = false,
+			priority = 1000,
+			dependencies = {'rktjmp/lush.nvim',},
+			config = function()
+				vim.opt.background = "dark"
+				vim.opt.termguicolors = true
+				vim.cmd.colorscheme 'jellybeans-nvim'
+			end,
+		}, 
+		-- install without yarn or npm
+		{
+			"iamcco/markdown-preview.nvim",
+			cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+			ft = { "markdown" },
+			build = function() vim.fn["mkdp#util#install"]() end,
+			config = function ()
+				-- set to 1, Vim will refresh Markdown when saving the buffer or
+				-- when leaving insert mode. Default 0 is auto-refresh Markdown as you edit or
+				-- move the cursor
+				-- default: 0
+				vim.cmd([[let g:mkdp_refresh_slow = 0]])
+			end,
+		},
+		{
+			'xeluxee/competitest.nvim',
+			lazy = true,
+			ft = {"cpp"},
+			keys = {{"<leader>r","<cmd>CompetiTest run<CR>",mode = "n"},{"<leader>c","<cmd>CompetiTest receive contest<CR>",mode = "n"},{"<leader>p","<cmd>CompetiTest receive problem<CR>",mode = "n"}},
+			dependencies = 'MunifTanjim/nui.nvim',
+			config = function() 
+				require('competitest').setup {
+					local_config_file_name = ".competitest.lua",
 
-	{
-		'xeluxee/competitest.nvim',
-		lazy = true,
-		ft = {"cpp"},
-		keys = {{"<leader>r","<cmd>CompetiTest run<CR>",mode = "n"},{"<leader>c","<cmd>CompetiTest receive contest<CR>",mode = "n"},{"<leader>p","<cmd>CompetiTest receive problem<CR>",mode = "n"}},
-		dependencies = 'MunifTanjim/nui.nvim',
-		config = function() 
-			require('competitest').setup {
-				local_config_file_name = ".competitest.lua",
-
-				floating_border = "rounded",
-				floating_border_highlight = "FloatBorder",
-				picker_ui = {
-					-- edit_testcases
-					width = 0.5,
-					height = 0.5,
-					mappings = {
-						focus_next = { "j", "<down>", "<Tab>" },
-						focus_prev = { "k", "<up>", "<S-Tab>" },
-						close = { "<esc>", "<C-c>", "q", "Q" },
-						submit = { "<cr>" },
+					floating_border = "rounded",
+					floating_border_highlight = "FloatBorder",
+					picker_ui = {
+						-- edit_testcases
+						width = 0.5,
+						height = 0.5,
+						mappings = {
+							focus_next = { "j", "<down>", "<Tab>" },
+							focus_prev = { "k", "<up>", "<S-Tab>" },
+							close = { "<esc>", "<C-c>", "q", "Q" },
+							submit = { "<cr>" },
+						},
 					},
-				},
-				editor_ui = {
-					-- edit_testcases after picking
-					popup_width = 0.4,
-					popup_height = 0.6,
-					show_nu = true,
-					show_rnu = false,
-					normal_mode_mappings = {
-						switch_window = { "<C-h>", "<C-l>", "<C-i>" },
-						save_and_close = "<C-s>",
-						cancel = { "q", "Q" },
-					},
-					insert_mode_mappings = {
-						switch_window = { "<C-h>", "<C-l>", "<C-i>" },
-						save_and_close = "<C-s>",
-						cancel = "<C-q>",
-					},
-				},
-				runner_ui = {
-					interface = "split",
-					selector_show_nu = false,
-					selector_show_rnu = false,
-					show_nu = false,
-					show_rnu = false,
-					mappings = {
-						run_again = "R",
-						run_all_again = "<C-r>",
-						kill = "K",
-						kill_all = "<C-k>",
-						view_input = { "i", "I" },
-						view_output = { "a", "A" },
-						view_stdout = { "o", "O" },
-						view_stderr = { "e", "E" },
-						toggle_diff = { "d", "D" },
-						close = { "q", "Q" },
-					},
-					viewer = {
-						width = 0.7,
-						height = 1,
+					editor_ui = {
+						-- edit_testcases after picking
+						popup_width = 0.4,
+						popup_height = 0.6,
 						show_nu = true,
 						show_rnu = false,
-						close_mappings = { "q", "Q" },
+						normal_mode_mappings = {
+							switch_window = { "<C-h>", "<C-l>", "<C-i>" },
+							save_and_close = "<C-s>",
+							cancel = { "q", "Q" },
+						},
+						insert_mode_mappings = {
+							switch_window = { "<C-h>", "<C-l>", "<C-i>" },
+							save_and_close = "<C-s>",
+							cancel = "<C-q>",
+						},
 					},
-				},
-				popup_ui = {
-					total_width = 0.8,
-					total_height = 0.8,
-					layout = {
-						{ 4, "tc" },
-						{ 5, { { 1, "so" }, { 1, "si" } } },
-						{ 5, { { 1, "eo" }, { 1, "se" } } },
+					runner_ui = {
+						interface = "split",
+						selector_show_nu = false,
+						selector_show_rnu = false,
+						show_nu = false,
+						show_rnu = false,
+						mappings = {
+							run_again = "R",
+							run_all_again = "<C-r>",
+							kill = "K",
+							kill_all = "<C-k>",
+							view_input = { "i", "I" },
+							view_output = { "a", "A" },
+							view_stdout = { "o", "O" },
+							view_stderr = { "e", "E" },
+							toggle_diff = { "d", "D" },
+							close = { "q", "Q" },
+						},
+						viewer = {
+							width = 0.7,
+							height = 1,
+							show_nu = true,
+							show_rnu = false,
+							close_mappings = { "q", "Q" },
+						},
 					},
-				},
-				split_ui = {
-					position = "right",
-					relative_to_editor = true,
-					total_width = 0.6,
-					vertical_layout = {
-						{ 1, "se" },
-						{ 1, { { 1, "tc" }, { 1, "si" } } },
-						{ 1, { { 1, "so" }, { 1, "eo" } } },
+					popup_ui = {
+						total_width = 0.8,
+						total_height = 0.8,
+						layout = {
+							{ 4, "tc" },
+							{ 5, { { 1, "so" }, { 1, "si" } } },
+							{ 5, { { 1, "eo" }, { 1, "se" } } },
+						},
 					},
-					total_height = 0.4,
-					horizontal_layout = {
-						{ 2, "se" },
-						{ 3, { { 1, "so" }, { 1, "si" } } },
-						{ 3, { { 1, "eo" }, { 1, "tc" } } },
+					split_ui = {
+						position = "right",
+						relative_to_editor = true,
+						total_width = 0.6,
+						vertical_layout = {
+							{ 1, "se" },
+							{ 1, { { 1, "tc" }, { 1, "si" } } },
+							{ 1, { { 1, "so" }, { 1, "eo" } } },
+						},
+						total_height = 0.4,
+						horizontal_layout = {
+							{ 2, "se" },
+							{ 3, { { 1, "so" }, { 1, "si" } } },
+							{ 3, { { 1, "eo" }, { 1, "tc" } } },
+						},
 					},
-				},
 
-				save_current_file = true,
-				save_all_files = false,
-				compile_directory = ".",
-				compile_command = {
-					c = { exec = "gcc", args = { "-Wall", "$(FNAME)", "-o", "$(FNOEXT)" } },
-					cpp = { exec = "g++", args = { "-DONPC", "-g" ,"-std=c++20", "-O2", "-Wkeyword-macro", "-Wmacro-redefined", "-Wall", "-Wextra", "-pedantic", "-Wshadow", "-Wformat=2", "-Wfloat-equal", "-Wconversion", "-Wshift-overflow", "-Wshorten-64-to-32", "-Wcast-qual", "-Wcast-align", "-Wno-unused-result", "-Wno-sign-conversion", "-fsanitize=address", "-fsanitize=undefined", "-fsanitize=float-divide-by-zero", "-fsanitize=float-cast-overflow", "-fno-sanitize-recover=all", "-fstack-protector-all", "-D_FORTIFY_SOURCE=2", "-D_GLIBCXX_DEBUG", "-D_GLIBCXX_DEBUG_PEDANTIC", "-isystem", "pch", "-include-pch", "/Users/shashank/Documents/contest/pch/bits/stdc++.h.pch", "$(FNAME)", "-o", "$(FNOEXT)" } },
-					--cpp = { exec = "make", args = {}},
-					rust = { exec = "rustc", args = { "$(FNAME)" } },
-					java = { exec = "javac", args = { "$(FNAME)" } },
-				},
-				running_directory = ".",
-				run_command = {
-					c = { exec = "./$(FNOEXT)" },
-					cpp = { exec = "./$(FNOEXT)" },
-					rust = { exec = "./$(FNOEXT)" },
-					python = { exec = "python", args = { "$(FNAME)" } },
-					java = { exec = "java", args = { "$(FNOEXT)" } },
-				},
-				multiple_testing = -1,
-				maximum_time = 5000,
-				output_compare_method = "squish",
-				view_output_diff = false,
+					save_current_file = true,
+					save_all_files = false,
+					compile_directory = ".",
+					compile_command = {
+						c = { exec = "gcc", args = { "-Wall", "$(FNAME)", "-o", "$(FNOEXT)" } },
+						cpp = { exec = "g++", args = { "-DONPC", "-g" ,"-std=c++20", "-O2", "-Wkeyword-macro", "-Wmacro-redefined", "-Wall", "-Wextra", "-pedantic", "-Wshadow", "-Wformat=2", "-Wfloat-equal", "-Wconversion", "-Wshift-overflow", "-Wshorten-64-to-32", "-Wcast-qual", "-Wcast-align", "-Wno-unused-result", "-Wno-sign-conversion", "-fsanitize=address", "-fsanitize=undefined", "-fsanitize=float-divide-by-zero", "-fsanitize=float-cast-overflow", "-fno-sanitize-recover=all", "-fstack-protector-all", "-D_FORTIFY_SOURCE=2", "-D_GLIBCXX_DEBUG", "-D_GLIBCXX_DEBUG_PEDANTIC", "-isystem", "pch", "-include-pch", "/Users/shashank/Documents/contest/pch/bits/stdc++.h.pch", "$(FNAME)", "-o", "$(FNOEXT)" } },
+						--cpp = { exec = "make", args = {}},
+						rust = { exec = "rustc", args = { "$(FNAME)" } },
+						java = { exec = "javac", args = { "$(FNAME)" } },
+					},
+					running_directory = ".",
+					run_command = {
+						c = { exec = "./$(FNOEXT)" },
+						cpp = { exec = "./$(FNOEXT)" },
+						rust = { exec = "./$(FNOEXT)" },
+						python = { exec = "python", args = { "$(FNAME)" } },
+						java = { exec = "java", args = { "$(FNOEXT)" } },
+					},
+					multiple_testing = -1,
+					maximum_time = 5000,
+					output_compare_method = "squish",
+					view_output_diff = false,
 
-				--testcases_directory = ".",
-				--testcases_use_single_file = false,
-				--testcases_auto_detect_storage = true,
-				--testcases_single_file_format = "$(FNOEXT).testcases",
-				--testcases_input_file_format = "$(FNOEXT)_input$(TCNUM).txt",
-				--testcases_output_file_format = "$(FNOEXT)_output$(TCNUM).txt",
-				testcases_use_single_file = false,
-				--testcases_auto_detect_storage = true,
-				--testcases_single_file_format = "$(FNOEXT).testcases",
+					--testcases_directory = ".",
+					--testcases_use_single_file = false,
+					--testcases_auto_detect_storage = true,
+					--testcases_single_file_format = "$(FNOEXT).testcases",
+					--testcases_input_file_format = "$(FNOEXT)_input$(TCNUM).txt",
+					--testcases_output_file_format = "$(FNOEXT)_output$(TCNUM).txt",
+					testcases_use_single_file = false,
+					--testcases_auto_detect_storage = true,
+					--testcases_single_file_format = "$(FNOEXT).testcases",
 
-				-- best so far 
-				testcases_directory = "test",
-				testcases_input_file_format = "sample-$(TCNUM).in",
-				testcases_output_file_format = "sample-$(TCNUM).out",
-				-- if using cf tools, enable the below config;
-				-- testcases_directory = ".",
-				-- testcases_input_file_format = "in$(TCNUM).txt",
-				-- testcases_output_file_format = "ans$(TCNUM).txt",
+					-- best so far 
+					testcases_directory = "test",
+					testcases_input_file_format = "sample-$(TCNUM).in",
+					testcases_output_file_format = "sample-$(TCNUM).out",
+					-- if using cf tools, enable the below config;
+					-- testcases_directory = ".",
+					-- testcases_input_file_format = "in$(TCNUM).txt",
+					-- testcases_output_file_format = "ans$(TCNUM).txt",
 
-				companion_port = 27121,
-				receive_print_message = true,
-				--template_file = false,
-				template_file = "~/Documents/contest/snippets/template.$(FEXT)",
-				evaluate_template_modifiers = true,
-				date_format = "%c",
-				received_files_extension = "cpp",
-				received_problems_path = "$(JAVA_TASK_CLASS)/main.$(FEXT)",
-				received_problems_prompt_path = false,
-				received_contests_directory = "$(CWD)",
-				--received_contests_problems_path = "$(PROBLEM).$(FEXT)",
-				received_contests_problems_path = "$(JAVA_TASK_CLASS)/main.$(FEXT)",
-				received_contests_prompt_directory = false,
-				received_contests_prompt_extension = false,
-				open_received_problems = true,
-				open_received_contests = true,
-				replace_received_testcases = false,
-				-- Mapping for running CompetiTest
-				vim.api.nvim_set_keymap('n', '<leader>r', "<cmd>CompetiTest run<CR>", { noremap = true, silent = true }),
-				vim.api.nvim_set_keymap('n', '<leader>c', "<cmd>CompetiTest receive contest<CR>", { noremap = true, silent = true }),
-				vim.api.nvim_set_keymap('n', '<leader>p', "<cmd>CompetiTest receive problem<CR>", { noremap = true, silent = true }),
+					companion_port = 27121,
+					receive_print_message = true,
+					--template_file = false,
+					template_file = "~/Documents/contest/snippets/template.$(FEXT)",
+					evaluate_template_modifiers = true,
+					date_format = "%c",
+					received_files_extension = "cpp",
+					received_problems_path = "$(JAVA_TASK_CLASS)/main.$(FEXT)",
+					received_problems_prompt_path = false,
+					received_contests_directory = "$(CWD)",
+					--received_contests_problems_path = "$(PROBLEM).$(FEXT)",
+					received_contests_problems_path = "$(JAVA_TASK_CLASS)/main.$(FEXT)",
+					received_contests_prompt_directory = false,
+					received_contests_prompt_extension = false,
+					open_received_problems = true,
+					open_received_contests = true,
+					replace_received_testcases = false,
+					-- Mapping for running CompetiTest
+					vim.api.nvim_set_keymap('n', '<leader>r', "<cmd>CompetiTest run<CR>", { noremap = true, silent = true }),
+					vim.api.nvim_set_keymap('n', '<leader>c', "<cmd>CompetiTest receive contest<CR>", { noremap = true, silent = true }),
+					vim.api.nvim_set_keymap('n', '<leader>p', "<cmd>CompetiTest receive problem<CR>", { noremap = true, silent = true }),
 
-				-- Mapping for adding CompetiTest testcase
-				--vim.api.nvim_set_keymap('n', '<leader>t', "<cmd>:CompetiTest add_testcase<CR>", { noremap = true, silent = false }),
-			}
-		end,
-	},
-	{
-		"christoomey/vim-tmux-navigator",
-		lazy = true,
-		cmd = {
-			"TmuxNavigateLeft",
-			"TmuxNavigateDown",
-			"TmuxNavigateUp",
-			"TmuxNavigateRight",
-			"TmuxNavigatePrevious",
-		},
-		keys = {
-			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-		},
-
-
-	},
-	{
-		'honza/vim-snippets',
-		lazy = true,
-		event = "InsertEnter",
-		dependencies = { 'SirVer/ultisnips' }, -- 'dependencies' changed to 'requires'
-	},
-	{
-		'SirVer/ultisnips',
-		lazy = true,
-		event = "InsertEnter",
-		--event = "InsertEnter", will be loaded when loading the nvim-cmp
-		config = function()
-			-- Set UltiSnips expand trigger to Enter key
-			vim.g.UltiSnipsExpandTrigger = '<cr>'
-			-- Set UltiSnips forward jump trigger to Tab key
-			vim.g.UltiSnipsJumpForwardTrigger = '<tab>'
-			-- Set UltiSnips backward jump trigger to Shift+Tab keys
-			vim.g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
-			-- Set UltiSnipsEdit to split the window vertically
-			vim.g.UltiSnipsEditSplit = "vertical" -- Commented out for now
-		end
-	},
-	{
-		'hrsh7th/nvim-cmp',
-		lazy = true,
-		--event = { "BufReadPre", "BufNewFile" },
-		event = "VeryLazy",
-		--event = { "InsertEnter"},
-		dependencies = {
-			--'neovim/nvim-lspconfig',
-			--'hrsh7th/cmp-nvim-lsp',
-			'hrsh7th/cmp-buffer',
-			'hrsh7th/cmp-path',
-			'hrsh7th/cmp-cmdline',
-			'SirVer/ultisnips',
-			'quangnguyen30192/cmp-nvim-ultisnips',
-		},
-
-		config = function ()
-
-			-- Set up nvim-cmp.
-			local cmp = require'cmp'
-
-			cmp.setup({
-				snippet = {
-					-- REQUIRED - you must specify a snippet engine
-					expand = function(args)
-						-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-						-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-						-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-						vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-						-- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
-					end,
-				},
-				window = {
-					--completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
-				},
-				mapping = cmp.mapping.preset.insert({
-					['<C-b>'] = cmp.mapping.scroll_docs(-4),
-					['<C-f>'] = cmp.mapping.scroll_docs(4),
-					['<C-Space>'] = cmp.mapping.complete(),
-					['<C-e>'] = cmp.mapping.abort(),
-					['<Cr>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-				}),
-				sources = cmp.config.sources({
-					{ name = 'ultisnips' }, -- For ultisnips users.
-					--{ name = 'nvim_lsp', max_item_count = 4},
-					-- { name = 'vsnip' }, -- For vsnip users.
-					-- { name = 'luasnip' }, -- For luasnip users.
-					-- { name = 'snippy' }, -- For snippy users.
-					}, {
-					{ name = 'buffer' },
-						{ name = 'path' },
-				})
-			})
-
-			-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-			cmp.setup.cmdline({ '/', '?' }, {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = {
-				{ name = 'buffer' }
+					-- Mapping for adding CompetiTest testcase
+					--vim.api.nvim_set_keymap('n', '<leader>t', "<cmd>:CompetiTest add_testcase<CR>", { noremap = true, silent = false }),
 				}
-			})
-			-- LSP
+			end,
+		},
+		{
+			"christoomey/vim-tmux-navigator",
+			lazy = true,
+			cmd = {
+				"TmuxNavigateLeft",
+				"TmuxNavigateDown",
+				"TmuxNavigateUp",
+				"TmuxNavigateRight",
+				"TmuxNavigatePrevious",
+			},
+			keys = {
+				{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+				{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+				{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+				{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+				{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+			},
 
-			--local nvim_lsp = require('lspconfig')
 
-			--vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-			--	vim.lsp.diagnostic.on_publish_diagnostics, {
-			--		underline = true,
-			--		virtual_text = {
-			--			spacing = 8,
-			--			severity_limit = "Error",
-			--		},
-			--		signs = false,
-			--		update_in_insert = false,
-			--	}
-			--)
-
-			-- Use an on_attach function to only map the following keys
-			-- after the language server attaches to the current buffer
-			local lsp_on_attach = function(client, bufnr)
-				local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-				local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-				--Enable completion triggered by <c-x><c-o>
-				buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-				-- Mappings.
-				local opts = { noremap=true, silent=true }
-
-				-- See `:help vim.lsp.*` for documentation on any of the below functions
-				buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-				buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-				buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-				buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-				buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-				buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-				buf_set_keymap('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-
-				-- Workspace management
-				buf_set_keymap('n', '<Leader>lwa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-				buf_set_keymap('n', '<Leader>lwr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-				buf_set_keymap('n', '<Leader>lwl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-
-				buf_set_keymap('n', '<Leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-				buf_set_keymap('n', '<Leader>lf', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-				buf_set_keymap('n', '<Leader>le', '<cmd>lua vim.diagnostic.open_float({scope="c"})<CR>', opts)
-				buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-				buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-				buf_set_keymap('n', '<Leader>lq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-
-				if client.server_capabilities.documentFormattingProvider then
-					buf_set_keymap('n', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-				else
-					buf_set_keymap('n', '<Leader>lw', '<cmd>echom "LSP formatting not supported"<CR>', opts)
-				end
-				if client.server_capabilities.documentRangeFormattingProvider then
-					buf_set_keymap('v', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-				else
-					buf_set_keymap('v', '<Leader>lw', '<cmd>echom "LSP range formatting not supported"<CR>', opts)
-				end
-
-				if client.server_capabilities.documentHighlightProvider then
-					vim.cmd [[
-						augroup lsp_document_highlight
-						autocmd! * <buffer>
-						autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-						autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-						]]
-				end
+		},
+		{
+			'honza/vim-snippets',
+			lazy = true,
+			event = "InsertEnter",
+			dependencies = { 'SirVer/ultisnips' }, -- 'dependencies' changed to 'requires'
+		},
+		{
+			'SirVer/ultisnips',
+			lazy = true,
+			event = "InsertEnter",
+			--event = "InsertEnter", will be loaded when loading the nvim-cmp
+			config = function()
+				-- Set UltiSnips expand trigger to Enter key
+				vim.g.UltiSnipsExpandTrigger = '<cr>'
+				-- Set UltiSnips forward jump trigger to Tab key
+				vim.g.UltiSnipsJumpForwardTrigger = '<tab>'
+				-- Set UltiSnips backward jump trigger to Shift+Tab keys
+				vim.g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
+				-- Set UltiSnipsEdit to split the window vertically
+				vim.g.UltiSnipsEditSplit = "vertical" -- Commented out for now
 			end
+		},
+		{
+			'hrsh7th/nvim-cmp',
+			lazy = true,
+			--event = { "BufReadPre", "BufNewFile" },
+			event = "VeryLazy",
+			--event = { "InsertEnter"},
+			dependencies = {
+				--'neovim/nvim-lspconfig',
+				--'hrsh7th/cmp-nvim-lsp',
+				'hrsh7th/cmp-buffer',
+				'hrsh7th/cmp-path',
+				'hrsh7th/cmp-cmdline',
+				'SirVer/ultisnips',
+				'quangnguyen30192/cmp-nvim-ultisnips',
+			},
 
-			--vim.cmd [[highlight LspReferenceText cterm=bold guibg=LightYellow]]
-			--vim.cmd [[highlight LspReferenceRead cterm=bold ctermbg=0 guibg=LightYellow]]
-			--vim.cmd [[highlight LspReferenceWrite cterm=bold ctermbg=0 guibg=LightYellow]]
+			config = function ()
+
+				-- Set up nvim-cmp.
+				local cmp = require'cmp'
+
+				cmp.setup({
+					snippet = {
+						-- REQUIRED - you must specify a snippet engine
+						expand = function(args)
+							-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+							-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+							-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+							vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+							-- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+						end,
+					},
+					window = {
+						--completion = cmp.config.window.bordered(),
+						documentation = cmp.config.window.bordered(),
+					},
+					mapping = cmp.mapping.preset.insert({
+						['<C-b>'] = cmp.mapping.scroll_docs(-4),
+						['<C-f>'] = cmp.mapping.scroll_docs(4),
+						['<C-Space>'] = cmp.mapping.complete(),
+						['<C-e>'] = cmp.mapping.abort(),
+						['<Cr>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+					}),
+					sources = cmp.config.sources({
+						{ name = 'ultisnips' }, -- For ultisnips users.
+						--{ name = 'nvim_lsp', max_item_count = 4},
+						-- { name = 'vsnip' }, -- For vsnip users.
+						-- { name = 'luasnip' }, -- For luasnip users.
+						-- { name = 'snippy' }, -- For snippy users.
+					}, {
+						{ name = 'buffer' },
+						{ name = 'path' },
+					})
+				})
+
+				-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+				cmp.setup.cmdline({ '/', '?' }, {
+					mapping = cmp.mapping.preset.cmdline(),
+					sources = {
+						{ name = 'buffer' }
+					}
+				})
+				-- LSP
+
+				--local nvim_lsp = require('lspconfig')
+
+				--vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+				--	vim.lsp.diagnostic.on_publish_diagnostics, {
+					--		underline = true,
+					--		virtual_text = {
+						--			spacing = 8,
+						--			severity_limit = "Error",
+						--		},
+						--		signs = false,
+						--		update_in_insert = false,
+						--	}
+						--)
+
+						-- Use an on_attach function to only map the following keys
+						-- after the language server attaches to the current buffer
+						local lsp_on_attach = function(client, bufnr)
+							local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+							local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+							--Enable completion triggered by <c-x><c-o>
+							buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+							-- Mappings.
+							local opts = { noremap=true, silent=true }
+
+							-- See `:help vim.lsp.*` for documentation on any of the below functions
+							buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+							buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+							buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+							buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+							buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+							buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+							buf_set_keymap('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+
+							-- Workspace management
+							buf_set_keymap('n', '<Leader>lwa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+							buf_set_keymap('n', '<Leader>lwr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+							buf_set_keymap('n', '<Leader>lwl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+
+							buf_set_keymap('n', '<Leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+							buf_set_keymap('n', '<Leader>lf', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+							buf_set_keymap('n', '<Leader>le', '<cmd>lua vim.diagnostic.open_float({scope="c"})<CR>', opts)
+							buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+							buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+							buf_set_keymap('n', '<Leader>lq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+
+							if client.server_capabilities.documentFormattingProvider then
+								buf_set_keymap('n', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+							else
+								buf_set_keymap('n', '<Leader>lw', '<cmd>echom "LSP formatting not supported"<CR>', opts)
+							end
+							if client.server_capabilities.documentRangeFormattingProvider then
+								buf_set_keymap('v', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+							else
+								buf_set_keymap('v', '<Leader>lw', '<cmd>echom "LSP range formatting not supported"<CR>', opts)
+							end
+
+							if client.server_capabilities.documentHighlightProvider then
+								vim.cmd [[
+								augroup lsp_document_highlight
+								autocmd! * <buffer>
+								autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+								autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+								]]
+							end
+						end
+
+						--vim.cmd [[highlight LspReferenceText cterm=bold guibg=LightYellow]]
+						--vim.cmd [[highlight LspReferenceRead cterm=bold ctermbg=0 guibg=LightYellow]]
+						--vim.cmd [[highlight LspReferenceWrite cterm=bold ctermbg=0 guibg=LightYellow]]
 
 
-			--local capabilities = require('cmp_nvim_lsp').default_capabilities()
-			--capabilities.offsetEncoding = "utf-8"
+						--local capabilities = require('cmp_nvim_lsp').default_capabilities()
+						--capabilities.offsetEncoding = "utf-8"
 
-			--local servers = { "clangd", "pyright","texlab"}
-			--for _, lsp in ipairs(servers) do
-			--	local capabilities = require('cmp_nvim_lsp').default_capabilities()
-			--	capabilities.offsetEncoding = "utf-8"
-			--	nvim_lsp[lsp].setup {
-			--		on_attach = lsp_on_attach,
-			--		flags = {
-			--			debounce_text_changes = 150,
-			--		},
-			--		capabilities = capabilities,
-			--	}
-			--end
-		end
-	},
-	---- lazy.nvim
-	{
-		"lervag/vimtex",
-		init = function()
-			-- Use init for configuration, don't use the more common "config".
-			vim.cmd([[
-			syntax enable
-			let g:vimtex_view_method = 'skim'
+						--local servers = { "clangd", "pyright","texlab"}
+						--for _, lsp in ipairs(servers) do
+						--	local capabilities = require('cmp_nvim_lsp').default_capabilities()
+						--	capabilities.offsetEncoding = "utf-8"
+						--	nvim_lsp[lsp].setup {
+							--		on_attach = lsp_on_attach,
+							--		flags = {
+								--			debounce_text_changes = 150,
+								--		},
+								--		capabilities = capabilities,
+								--	}
+								--end
+							end
+						},
+						---- lazy.nvim
+						{
+							"lervag/vimtex",
+							init = function()
+								-- Use init for configuration, don't use the more common "config".
+								vim.cmd([[
+								syntax enable
+								let g:vimtex_view_method = 'skim'
 
-			" Or with a generic interface:
-			let g:vimtex_view_general_viewer = 'okular'
-			let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-			" VimTeX uses latexmk as the default compiler backend. If you use it, which is
-			" strongly recommended, you probably don't need to configure anything. If you
-			" want another compiler backend, you can change it as follows. The list of
-			" supported backends and further explanation is provided in the documentation,
-			" see ":help vimtex-compiler".
+								" Or with a generic interface:
+								let g:vimtex_view_general_viewer = 'okular'
+								let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+								" VimTeX uses latexmk as the default compiler backend. If you use it, which is
+								" strongly recommended, you probably don't need to configure anything. If you
+								" want another compiler backend, you can change it as follows. The list of
+								" supported backends and further explanation is provided in the documentation,
+								" see ":help vimtex-compiler".
 
-			let g:vimtex_compiler_method = 'latexmk' 
-			" Most VimTeX mappings rely on localleader and this can be changed with the
-			" following line. The default is usually fine and is the symbol "\".
-			let maplocalleader = ","
-			]])
-		end
-	},
-	--{
-	--	'nvim-treesitter/nvim-treesitter',
-	--	lazy = true,
-	--	--event = "VeryLazy",
-
-
-	--	build = ":TSUpdate",
-	--	config = function()
-	--		local config = require("nvim-treesitter.configs")
-	--		config.setup {
-	--			ensure_installed = {"python","cpp"},
-	--			highlight = {
-	--				enable = true,
-
-	--				-- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-	--				-- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-	--				-- the name of the parser)
-	--				-- list of language that will be disabled
-	--				disable = { "lua","rust" },
-	--				-- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-	--				disable = function(lang, buf)
-	--					local max_filesize = 100 * 1024 -- 100 KB
-	--					local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-	--					if ok and stats and stats.size > max_filesize then
-	--						return true
-	--					end
-	--				end,
-
-	--				-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-	--				-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-	--				-- Using this option may slow down your editor, and you may see some duplicate highlights.
-	--				-- Instead of true it can also be a list of languages
-	--				additional_vim_regex_highlighting = false,
-	--			},
-	--			indent = { enable = true }
-	--		}
-	--	end
-	--}
-}
-local opts = {}
-require("lazy").setup(plugins,opts)
+								let g:vimtex_compiler_method = 'latexmk' 
+								" Most VimTeX mappings rely on localleader and this can be changed with the
+								" following line. The default is usually fine and is the symbol "\".
+								let maplocalleader = ","
+								]])
+							end
+						},
+						--{
+							--	'nvim-treesitter/nvim-treesitter',
+							--	lazy = true,
+							--	--event = "VeryLazy",
 
 
+							--	build = ":TSUpdate",
+							--	config = function()
+								--		local config = require("nvim-treesitter.configs")
+								--		config.setup {
+									--			ensure_installed = {"python","cpp"},
+									--			highlight = {
+										--				enable = true,
+
+										--				-- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+										--				-- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+										--				-- the name of the parser)
+										--				-- list of language that will be disabled
+										--				disable = { "lua","rust" },
+										--				-- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+										--				disable = function(lang, buf)
+											--					local max_filesize = 100 * 1024 -- 100 KB
+											--					local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+											--					if ok and stats and stats.size > max_filesize then
+											--						return true
+											--					end
+											--				end,
+
+											--				-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+											--				-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+											--				-- Using this option may slow down your editor, and you may see some duplicate highlights.
+											--				-- Instead of true it can also be a list of languages
+											--				additional_vim_regex_highlighting = false,
+											--			},
+											--			indent = { enable = true }
+											--		}
+											--	end
+											--}
+										}
+										local opts = {}
+										require("lazy").setup(plugins,opts)
 
 
-vim.cmd([[
-	" same as autocmd BufEnter * silent! :lcd%:p:h
-	set autochdir
-	" .zshrc on path 
-	set shell=/bin/zsh
 
-	autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
-	]])
--- refocus after inverse search in vimtex skim 
-vim.cmd([[
-	function! s:TexFocusVim() abort
-	" Replace `TERMINAL` with the name of your terminal application
-	" Example: execute "!open -a iTerm"  
-	" Example: execute "!open -a Alacritty"
-	"silent execute "!open -a TERMINAL"
-	"silent execute "!open -a iTerm"
-	silent execute "!open -a WezTerm"
-	redraw!
-	endfunction
-	augroup vimtex_event_focus
-	au!
-	au User VimtexEventViewReverse call s:TexFocusVim()
-	augroup END
 
-]])
+										vim.cmd([[
+										" same as autocmd BufEnter * silent! :lcd%:p:h
+										set autochdir
+										" .zshrc on path 
+										set shell=/bin/zsh
+
+										autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
+										]])
+										-- refocus after inverse search in vimtex skim 
+										vim.cmd([[
+										function! s:TexFocusVim() abort
+										" Replace `TERMINAL` with the name of your terminal application
+										" Example: execute "!open -a iTerm"  
+										" Example: execute "!open -a Alacritty"
+										"silent execute "!open -a TERMINAL"
+										"silent execute "!open -a iTerm"
+										silent execute "!open -a WezTerm"
+										redraw!
+										endfunction
+										augroup vimtex_event_focus
+										au!
+										au User VimtexEventViewReverse call s:TexFocusVim()
+										augroup END
+
+										]])

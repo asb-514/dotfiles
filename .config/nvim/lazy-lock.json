@@ -7,6 +7,7 @@
   "jellybeans-nvim": { "branch": "main", "commit": "12a8687daf82bb4f69c5cb1dcc672bd9c5e6a094" },
   "lazy.nvim": { "branch": "main", "commit": "05240b41548c4245a04d34ee54f789e824129991" },
   "lush.nvim": { "branch": "main", "commit": "7c0e27f50901481fe83b974493c4ea67a4296aeb" },
+  "markdown-preview.nvim": { "branch": "master", "commit": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee" },
   "nui.nvim": { "branch": "main", "commit": "a3597dc88b53489d3fddbddbbd13787355253bb0" },
   "nvim-cmp": { "branch": "main", "commit": "5260e5e8ecadaf13e6b82cf867a909f54e15fd07" },
   "ultisnips": { "branch": "master", "commit": "49dc8cb2086db19d385791c8e1635723b0fd95c7" },
