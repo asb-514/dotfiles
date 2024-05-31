@@ -19,6 +19,7 @@ export PATH="$HOME/.config/emacs/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/.emacs.d/bin:$PATH"
 PATH="/opt/homebrew/opt/gnu-time/libexec/gnubin:$PATH"
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
