@@ -5,6 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+source ~/powerlevel10k/powerlevel10k.zsh-theme
 # # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.  # Initialization code that may require console input (password prompts, [y/n]
 # # confirmations, etc.) must go above this block; everything else may go below.
 # 
@@ -19,7 +20,6 @@ export PATH="$HOME/.config/emacs/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/.emacs.d/bin:$PATH"
 PATH="/opt/homebrew/opt/gnu-time/libexec/gnubin:$PATH"
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -170,4 +170,3 @@ eval "$(zoxide init zsh)"
 export PATH="$(brew --prefix)/opt/util-linux/sbin:$(brew --prefix)/opt/util-linux/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
-source ~/powerlevel10k/powerlevel10k.zsh-theme
