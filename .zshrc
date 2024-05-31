@@ -158,15 +158,18 @@ alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
 # cf-tools aliases
 #
 #
-contest_id="1968"
+contest_id="1981"
 alias sub='cf submit -f main.cpp $contest_id'
 alias lis='cf list $contest_id'
 alias wch='cf watch all $contest_id'
 eval "$(zoxide init zsh)"
-#fastfetch
+
+
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="$(brew --prefix)/opt/util-linux/sbin:$(brew --prefix)/opt/util-linux/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+#fastfetch
