@@ -127,6 +127,9 @@ alias lib='cd ~/myicloud/Library'
 alias list='nvim ~/Library/Mobile\ Documents/com~apple~CloudDocs/Library/tasks.txt'
 alias net='python3.10 ~/Documents/scripts/netaccess.py'
 alias python=python3.10
+alias v='vim'
+alias n='nvim'
+
 alias matlab='~/Applications/MATLAB_R2023b.app/bin/matlab -nodesktop'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 export TERM=xterm-256color
