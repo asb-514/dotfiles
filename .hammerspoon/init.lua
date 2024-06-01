@@ -101,21 +101,21 @@ PaperWM:bindHotkeys({
 	reverse_cycle_height = {{"ctrl", "alt", "cmd", "shift"}, "r"},
 
 	-- move focused window into / out of a column
-	slurp_in = {{"alt", "cmd"}, "i"},
-	barf_out = {{"alt", "cmd"}, "o"},
+	--slurp_in = {{"alt", "cmd"}, "i"},
+	--barf_out = {{"alt", "cmd"}, "o"},
 
 	-- switch to a new Mission Control space
-	switch_space_l = {{"alt", "cmd"}, ","},
-	switch_space_r = {{"alt", "cmd"}, "."},
-	switch_space_1 = {{"alt", "cmd"}, "1"},
-	switch_space_2 = {{"alt", "cmd"}, "2"},
-	switch_space_3 = {{"alt", "cmd"}, "3"},
-	switch_space_4 = {{"alt", "cmd"}, "4"},
-	switch_space_5 = {{"alt", "cmd"}, "5"},
-	switch_space_6 = {{"alt", "cmd"}, "6"},
-	switch_space_7 = {{"alt", "cmd"}, "7"},
-	switch_space_8 = {{"alt", "cmd"}, "8"},
-	switch_space_9 = {{"alt", "cmd"}, "9"},
+	--switch_space_l = {{"alt", "cmd"}, ","},
+	--switch_space_r = {{"alt", "cmd"}, "."},
+	--switch_space_1 = {{"alt", "cmd"}, "1"},
+	--switch_space_2 = {{"alt", "cmd"}, "2"},
+	--switch_space_3 = {{"alt", "cmd"}, "3"},
+	--switch_space_4 = {{"alt", "cmd"}, "4"},
+	--switch_space_5 = {{"alt", "cmd"}, "5"},
+	--switch_space_6 = {{"alt", "cmd"}, "6"},
+	--switch_space_7 = {{"alt", "cmd"}, "7"},
+	--switch_space_8 = {{"alt", "cmd"}, "8"},
+	--switch_space_9 = {{"alt", "cmd"}, "9"},
 
 	-- move focused window to a new space and tile
 	move_window_1 = {{"alt", "cmd", "shift"}, "1"},
