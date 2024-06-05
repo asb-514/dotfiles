@@ -174,3 +174,4 @@ export PATH="$(brew --prefix)/opt/util-linux/sbin:$(brew --prefix)/opt/util-linu
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 #fastfetch
+export PATH="/opt/homebrew/opt/task@2/bin:$PATH"
