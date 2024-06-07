@@ -31,8 +31,8 @@ color article white default bold
 
 browser linkhandler
 macro , open-in-browser
-macro a set browser "stream_video" ; open-in-browser ; set browser linkhandler
-macro w set browser "lynx -vikeys" ; open-in-browser ; set browser linkhandler
+macro v set browser "stream_video" ; open-in-browser ; set browser linkhandler
+macro l set browser "lynx -vikeys" ; open-in-browser ; set browser linkhandler
 macro b set browser "open" ; open-in-browser ; set browser linkhandler
 #macro t set browser "qndl" ; open-in-browser ; set browser linkhandler
 #macro v set browser "setsid -f mpv" ; open-in-browser ; set browser linkhandler
