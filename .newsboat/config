@@ -29,13 +29,13 @@ color listfocus_unread yellow default bold
 color info red black bold
 color article white default bold
 
-browser linkhandler
+browser open
 macro , open-in-browser
-macro v set browser "stream_video" ; open-in-browser ; set browser linkhandler
-macro l set browser "lynx -vikeys" ; open-in-browser ; set browser linkhandler
-macro w set browser "w3m" ; open-in-browser ; set browser linkhandler
-macro i set browser "W3M_IMG2SIXEL=/opt/homebrew/bin/img2sixel w3m -sixel -o display_image=1 " ; open-in-browser ; set browser linkhandler
-macro b set browser "open" ; open-in-browser ; set browser linkhandler
+macro v set browser "stream_video" ; open-in-browser ; set browser open
+macro l set browser "lynx -vikeys" ; open-in-browser ; set browser open
+macro w set browser "w3m" ; open-in-browser ; set browser open
+macro i set browser "W3M_IMG2SIXEL=/opt/homebrew/bin/img2sixel w3m -sixel -o display_image=1 " ; open-in-browser ; set browser open
+macro b set browser "open" ; open-in-browser ; set browser open
 #macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser linkhandler
 #macro t set browser "qndl" ; open-in-browser ; set browser linkhandler
 #macro v set browser "setsid -f mpv" ; open-in-browser ; set browser linkhandler
