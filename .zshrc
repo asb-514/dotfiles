@@ -127,7 +127,7 @@ alias comp='cd ~/Documents/contest'
 alias lib='cd ~/myicloud/Library'
 alias list='nvim ~/Library/Mobile\ Documents/com~apple~CloudDocs/Library/tasks.txt'
 alias net='python3.10 ~/Documents/scripts/netaccess.py'
-alias python=python3.10
+#alias python=python3.10
 alias v='vim'
 alias n='nvim'
 alias iw3m='W3M_IMG2SIXEL=/opt/homebrew/bin/img2sixel w3m -sixel -o display_image=1 '
@@ -175,3 +175,9 @@ export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 #fastfetch
 export PATH="/opt/homebrew/opt/task@2/bin:$PATH"
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+
+
