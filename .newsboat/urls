@@ -1,3 +1,4 @@
+https://www.reddit.com/r/tollywood.rss "telugu"
 #formula one 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCB_qr75-ydFVKSF9Dmo6izg&noapp=1  "Formula1" "Youtube" "Fun"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCw3bFltc5gY-3KXyEtTHy7Q&noapp=1 "Formula1" "Youtube" "Fun"
@@ -33,10 +34,13 @@ https://blog.mitrichev.ch/feeds/posts/default "CP"
 https://aliabdaal.com/feed/ "Productivity"
 https://aliabdaal.com/podcast/feed/ "Productivity"
 
-https://www.atlassian.com/blog/rss "Productivity"
 https://zenhabits.net/feed/ "Productivity"
-https://codemadness.org/atom.xml
+https://codemadness.org/atom.xml "Unix"
+https://utcc.utoronto.ca/~cks/space/blog/?atom "Unix"
+https://unixbhaskar.wordpress.com/feed/ "Unix"
 
+https://drewdevault.com/blog/index.xml "Unix"
+http://vimcasts.org/feeds/ogg.rss "Unix"
 
 
 #lukesmith
