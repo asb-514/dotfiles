@@ -153,7 +153,7 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
 fi
 
-alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
+alias nvim-lazy="NVIM_APPNAME=lazyvi nvim"
 
 
 # cf-tools aliases
