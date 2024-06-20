@@ -137,7 +137,7 @@ return
 			local capabilities = require('cmp_nvim_lsp').default_capabilities()
 			capabilities.offsetEncoding = "utf-8"
 
-			local servers = { "clangd","pyright","lua_ls","texlab", "marksman"}
+			local servers = { "clangd","pyright","lua_ls","texlab", "marksman","bashls"}
 			for _, lsp in ipairs(servers) do
 				local capabilities = require('cmp_nvim_lsp').default_capabilities()
 				capabilities.offsetEncoding = "utf-8"
