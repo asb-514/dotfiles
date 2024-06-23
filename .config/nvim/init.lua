@@ -17,8 +17,9 @@ vim.opt.runtimepath:append("/opt/homebrew/opt/fzf")
 
 
 require("config.keymaps")
+require("lazy").setup("plugins")
+
 require("config.options")
 require("config.functions")
 require("config.autocmd")
 
-require("lazy").setup("plugins")

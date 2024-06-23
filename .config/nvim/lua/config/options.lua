@@ -20,22 +20,18 @@ vim.opt.history = 1000 -- Number of command-line history entries to save
 vim.opt.smartindent = true -- Enable smart indentation
 vim.opt.wrap = false -- Disable line wrapping
 vim.opt.relativenumber = true -- Show relative line numbers
-vim.opt.cursorline = true -- Highlight current line
+vim.opt.cursorline = false -- Highlight current line
 vim.opt.splitbelow = true -- Open new splits below the current one
 vim.opt.splitright = true -- Open new splits to the right of the current one
 vim.opt.guifont = "*" -- Set the default GUI font
 
 vim.cmd([[autocmd BufEnter * :set guicursor=n-v-c:block,i-ci-ve:hor20]])
-vim.cmd([[
-highlight Normal ctermbg=none
-highlight NonText ctermbg=None
-]])
-
 
 vim.opt.iskeyword:append(":") -- Include ':' as part of a word when navigating
 vim.opt.foldmethod ="manual" -- syntax is also prossible
 --vim.opt.syntax = "on" -- Enable syntax highlighting
 vim.cmd([[set syntax=on]])
+vim.cmd [[highlight Normal guibg=NONE ctermbg=NONE]]
 
 --https://github.com/neovim/neovim/pull/17266
 vim.cmd([[

@@ -17,7 +17,6 @@ autocmd FileType cpp,c setlocal equalprg=clang-format\ -style=WebKit
 augroup END
 ]])
 
-
 -- Python customizations
 vim.cmd([[
 augroup PythonCustomizations
