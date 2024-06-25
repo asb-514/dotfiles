@@ -12,7 +12,7 @@ vim.api.nvim_set_keymap('n', '<Leader>q', ':q<CR>', { noremap = true, silent = t
 --vim.api.nvim_set_keymap('n', '<s-tab>', ':bp<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>a', 'ggVG$"*y', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>v', ':vsplit | terminal<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'K', ':bn<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'K', ':bp<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'J', ':bn<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>t', ':terminal<CR>a', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>k', ':bdelete<CR>', { noremap = true, silent = true })
