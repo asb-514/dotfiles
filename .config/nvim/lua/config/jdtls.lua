@@ -95,7 +95,8 @@ local function setup_jdtls()
 	local bundles = get_bundles()
 
 	-- Determine the root directory of the project by looking for these specific markers
-	local root_dir = jdtls.setup.find_root( { 'build.gradle', 'build.gradle.kts' });
+    local root_dir = jdtls.setup.find_root({ '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' });
+	--local root_dir = jdtls.setup.find_root( { 'build.gradle', 'build.gradle.kts' });
 
 	-- Tell our JDTLS language features it is capable of
 	local capabilities = {
@@ -126,7 +127,8 @@ local function setup_jdtls()
 		'-Declipse.product=org.eclipse.jdt.ls.core.product',
 		'-Dlog.protocol=true',
 		'-Dlog.level=ALL',
-		'-Xmx1g',
+		'-Xmx10240m',
+		'-noverify',
 		'--add-modules=ALL-SYSTEM',
 		'--add-opens', 'java.base/java.util=ALL-UNNAMED',
 		'--add-opens', 'java.base/java.lang=ALL-UNNAMED',
@@ -242,11 +244,64 @@ local function setup_jdtls()
 		bundles = bundles,
 		extendedClientCapabilities = extendedClientCapabilities
 	}
+	local lsp_on_attach = function(client, bufnr)
+		local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+		local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+		--Enable completion triggered by <c-x><c-o>
+		buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+		-- Mappings.
+		local opts = { noremap=true, silent=true }
+
+		-- See `:help vim.lsp.*` for documentation on any of the below functions
+		buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+		buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+		buf_set_keymap('n', 'gk', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+		buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+		buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+		buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+		buf_set_keymap('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+
+		-- Workspace management
+		buf_set_keymap('n', '<Leader>lwa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+		buf_set_keymap('n', '<Leader>lwr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+		buf_set_keymap('n', '<Leader>lwl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+
+		buf_set_keymap('n', '<Leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+		buf_set_keymap('n', '<Leader>lf', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+		buf_set_keymap('n', '<Leader>le', '<cmd>lua vim.diagnostic.open_float({scope="c"})<CR>', opts)
+		buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+		buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+		buf_set_keymap('n', '<Leader>lq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+
+		if client.server_capabilities.documentFormattingProvider then
+			buf_set_keymap('n', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+		else
+			buf_set_keymap('n', '<Leader>lw', '<cmd>echom "LSP formatting not supported"<CR>', opts)
+		end
+		if client.server_capabilities.documentRangeFormattingProvider then
+			buf_set_keymap('v', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+		else
+			buf_set_keymap('v', '<Leader>lw', '<cmd>echom "LSP range formatting not supported"<CR>', opts)
+		end
+
+		if client.server_capabilities.documentHighlightProvider then
+			vim.cmd [[
+						augroup lsp_document_highlight
+						autocmd! * <buffer>
+						autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+						autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+						]]
+		end
+	end
+
 
 	-- Function that will be ran once the language server is attached
-	local on_attach = function(_, bufnr)
+	local on_attach = function(client, bufnr)
 		-- Map the Java specific key mappings once the server is attached
 		java_keymaps()
+		lsp_on_attach(client,bufnr)
 
 		-- Setup the java debug adapter of the JDTLS server
 		require('jdtls.dap').setup_dap()
