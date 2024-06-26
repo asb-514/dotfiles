@@ -149,7 +149,8 @@ local function setup_jdtls()
 				enabled = true,
 				-- Use the Google Style guide for code formattingh
 				settings = {
-					url = vim.fn.stdpath("config") .. "/lang_servers/intellij-java-google-style.xml",
+					--url = vim.fn.stdpath("config") .. "/lang_servers/intellij-java-google-style.xml",
+					url = "https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml",
 					profile = "GoogleStyle"
 				}
 			},
@@ -195,11 +196,11 @@ local function setup_jdtls()
 				},
 				-- Set the order in which the language server should organize imports
 				importOrder = {
-					"java",
-					"jakarta",
-					"javax",
 					"com",
 					"org",
+					"javax",
+					"java",
+					"jakarta",
 				}
 			},
 			sources = {
