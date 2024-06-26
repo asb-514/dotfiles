@@ -132,6 +132,12 @@ local function setup_jdtls()
 		'--add-modules=ALL-SYSTEM',
 		'--add-opens', 'java.base/java.util=ALL-UNNAMED',
 		'--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+		'--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED',
+		'--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED',
+		'--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED',
+		'--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED',
+		'--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED',
+		'--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED',
 		'-javaagent:' .. lombok,
 		'-jar',
 		launcher,
@@ -148,11 +154,11 @@ local function setup_jdtls()
 			format = {
 				enabled = true,
 				-- Use the Google Style guide for code formattingh
-				settings = {
-					--url = vim.fn.stdpath("config") .. "/lang_servers/intellij-java-google-style.xml",
-					url = "https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml",
-					profile = "GoogleStyle"
-				}
+				--settings = {
+				--	--url = vim.fn.stdpath("config") .. "/lang_servers/intellij-java-google-style.xml",
+				--	url = "https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml",
+				--	profile = "GoogleStyle"
+				--}
 			},
 			-- Enable downloading archives from eclipse automatically
 			eclipse = {
@@ -276,17 +282,20 @@ local function setup_jdtls()
 		buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 		buf_set_keymap('n', '<Leader>lq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
-		if client.server_capabilities.documentFormattingProvider then
-			buf_set_keymap('n', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-		else
-			buf_set_keymap('n', '<Leader>lw', '<cmd>echom "LSP formatting not supported"<CR>', opts)
-		end
-		if client.server_capabilities.documentRangeFormattingProvider then
-			buf_set_keymap('v', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-		else
-			buf_set_keymap('v', '<Leader>lw', '<cmd>echom "LSP range formatting not supported"<CR>', opts)
-		end
+		-- these if condition not working for jdtls
+		--if client.server_capabilities.documentFormattingProvider then
+		--	buf_set_keymap('n', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+		--else
+		--	buf_set_keymap('n', '<Leader>lw', '<cmd>echom "LSP formatting not supported"<CR>', opts)
+		--end
+		--if client.server_capabilities.documentRangeFormattingProvider then
+		--	buf_set_keymap('v', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+		--else
+		--	buf_set_keymap('v', '<Leader>lw', '<cmd>echom "LSP range formatting not supported"<CR>', opts)
+		--end
 
+		buf_set_keymap('n', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
+		buf_set_keymap('v', '<Leader>lw', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
 		if client.server_capabilities.documentHighlightProvider then
 			vim.cmd [[
 						augroup lsp_document_highlight
