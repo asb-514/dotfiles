@@ -1,5 +1,6 @@
 return {
     "mfussenegger/nvim-dap",
+	lazy = true,
     dependencies = {
         -- ui plugins to make debugging simplier
         "rcarriga/nvim-dap-ui",
