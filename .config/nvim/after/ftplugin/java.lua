@@ -2,4 +2,6 @@
 vim.cmd [[
 	lua require'config.jdtls'.setup_jdtls()
 	noremap <Leader>F :!java-format -i %<cr>
+	vnoremap <Leader>F :!java-format<CR>
+	set equalprg=clang-format
 ]]

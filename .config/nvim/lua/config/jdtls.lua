@@ -95,7 +95,7 @@ local function setup_jdtls()
 	local bundles = get_bundles()
 
 	-- Determine the root directory of the project by looking for these specific markers
-    local root_dir = jdtls.setup.find_root({ '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' });
+	local root_dir = jdtls.setup.find_root({ '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' });
 	--local root_dir = jdtls.setup.find_root( { 'build.gradle', 'build.gradle.kts' });
 
 	-- Tell our JDTLS language features it is capable of
@@ -155,8 +155,8 @@ local function setup_jdtls()
 				enabled = true,
 				-- Use the Google Style guide for code formattingh
 				--settings = {
-				--	--url = vim.fn.stdpath("config") .. "/lang_servers/intellij-java-google-style.xml",
-				--	url = "https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml",
+				--	url = vim.fn.stdpath("config") .. "/lang_servers/intellij-java-google-style.xml",
+				--	--url = "https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml",
 				--	profile = "GoogleStyle"
 				--}
 			},

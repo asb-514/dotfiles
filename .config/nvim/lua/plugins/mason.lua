@@ -2,9 +2,7 @@ return {
 	{
 		"williamboman/mason.nvim",
 		lazy = true,
-		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
-		},
+		
 		keys = {
 			{ "<leader>mi", "<cmd>Mason<cr>", desc = "Join Toggle" },
 		},
@@ -17,6 +15,9 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		lazy = true,
+		dependencies = {
+			"williamboman/mason.nvim",
+		},
 		config = function()
 			-- ensure that we have lua language server, typescript launguage server, java language server, and java test language server are installed
 			require("mason-lspconfig").setup({
