@@ -4,9 +4,13 @@ return {
 		'nvim-telescope/telescope.nvim',
 		-- pull a specific version of the plugin
 		tag = '0.1.6',
+		lazy = true,
+		event = "VeryLazy",
 		dependencies = {
 			-- general purpose plugin used to build user interfaces in neovim plugins
-			'nvim-lua/plenary.nvim'
+			'nvim-lua/plenary.nvim',
+			'nvim-telescope/telescope-ui-select.nvim',
+			'nvim-telescope/telescope-fzf-native.nvim',
 		},
 
 		config = function()
@@ -56,10 +60,6 @@ return {
 						["<C-n>"] = actions.cycle_history_next,
 						-- use <cltr> + p to go to the previous option
 						["<C-p>"] = actions.cycle_history_prev,
-						-- use <cltr> + j to go to the next preview
-						["<C-j>"] = actions.move_selection_next,
-						-- use <cltr> + k to go to the previous preview
-						["<C-k>"] = actions.move_selection_previous,
 					}
 				},
 				-- load the ui-select extension

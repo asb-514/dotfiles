@@ -4,13 +4,13 @@ return {
 		lazy = true,
 		event = "VeryLazy",
 		dependencies = {
+			'quangnguyen30192/cmp-nvim-ultisnips',
 			'neovim/nvim-lspconfig',
 			'hrsh7th/cmp-nvim-lsp',
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-path',
 			'hrsh7th/cmp-cmdline',
 			'SirVer/ultisnips',
-			'quangnguyen30192/cmp-nvim-ultisnips',
 		},
 
 		config = function ()
@@ -119,14 +119,14 @@ return {
 					buf_set_keymap('v', '<Leader>lw', '<cmd>echom "LSP range formatting not supported"<CR>', opts)
 				end
 
-				if client.server_capabilities.documentHighlightProvider then
-					vim.cmd [[
-						augroup lsp_document_highlight
-						autocmd! * <buffer>
-						autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-						autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-						]]
-				end
+				--if client.server_capabilities.documentHighlightProvider then
+				--	vim.cmd [[
+				--		augroup lsp_document_highlight
+				--		autocmd! * <buffer>
+				--		--autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+				--		--autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+				--		]]
+				--end
 			end
 
 			vim.cmd [[highlight LspReferenceText cterm=bold guibg=LightYellow]]

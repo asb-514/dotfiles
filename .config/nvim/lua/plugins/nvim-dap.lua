@@ -2,6 +2,7 @@ return {
 	{
 		"mfussenegger/nvim-dap",
 		lazy = true,
+		ft = {"java"},
 		dependencies = {
 			-- ui plugins to make debugging simplier
 			"rcarriga/nvim-dap-ui",
@@ -33,9 +34,15 @@ return {
 		end
 	},
 	{
+		'nvim-telescope/telescope-dap.nvim',
+		lazy = true,
+		ft = {'java'},
+	},
+	{
 		-- https://github.com/rcarriga/nvim-dap-ui
 		'rcarriga/nvim-dap-ui',
-		event = 'VeryLazy',
+		lazy = true,
+		ft = {'java'},
 		dependencies = {
 			-- https://github.com/theHamsta/nvim-dap-virtual-text
 			'theHamsta/nvim-dap-virtual-text', -- inline variable text while debugging
@@ -186,6 +193,7 @@ return {
 		-- https://github.com/theHamsta/nvim-dap-virtual-text
 		'theHamsta/nvim-dap-virtual-text',
 		lazy = true,
+		ft = {'java'},
 		opts = {
 			-- Display debug text as a comment
 			commented = true,

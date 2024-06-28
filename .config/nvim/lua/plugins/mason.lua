@@ -29,6 +29,7 @@ return {
 	{
 		"jay-babu/mason-nvim-dap.nvim",
 		lazy = true,
+		ft = {'java'},
 		config = function()
 			-- ensure the java debug adapter is installed
 			require("mason-nvim-dap").setup({
@@ -40,6 +41,7 @@ return {
 	{
 		"mfussenegger/nvim-jdtls",
 		lazy = true,
+		ft = {'java'},
 		dependencies = {
 			"mfussenegger/nvim-dap",
 		},

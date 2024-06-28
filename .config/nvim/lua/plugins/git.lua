@@ -1,11 +1,13 @@
 return {
 	{
 		"tpope/vim-fugitive",
-		lazy = false
+		lazy = true,
+		event = "VeryLazy",
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		lazy = false,
+		lazy = true,
+		event = "VeryLazy",
 		config = function()
 			require("gitsigns").setup()
 
