@@ -22,4 +22,3 @@ require("lazy").setup("plugins")
 require("config.options")
 require("config.functions")
 require("config.autocmd")
-

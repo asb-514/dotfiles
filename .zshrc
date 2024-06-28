@@ -131,6 +131,8 @@ alias net='python3.10 ~/Documents/scripts/netaccess.py'
 alias v='vim'
 alias n='nvim'
 alias iw3m='W3M_IMG2SIXEL=/opt/homebrew/bin/img2sixel w3m -sixel -o display_image=1 '
+alias tt='taskwarrior-tui'
+alias gc='taskwarrior-tui'
 
 alias matlab='~/Applications/MATLAB_R2023b.app/bin/matlab -nodesktop'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

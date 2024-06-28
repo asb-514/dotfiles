@@ -95,7 +95,7 @@ return {
 			compile_directory = ".",
 			compile_command = {
 				c = { exec = "gcc", args = { "-Wall", "$(FNAME)", "-o", "$(FNOEXT)" } },
-				cpp = { exec = "g++", args = { "-DONPC", "-g" ,"-std=c++20", "-O2", "-Wkeyword-macro", "-Wmacro-redefined", "-Wall", "-Wextra", "-pedantic", "-Wshadow", "-Wformat=2", "-Wfloat-equal", "-Wconversion", "-Wshift-overflow", "-Wshorten-64-to-32", "-Wcast-qual", "-Wcast-align", "-Wno-unused-result", "-Wno-sign-conversion", "-fsanitize=address", "-fsanitize=undefined", "-fsanitize=float-divide-by-zero", "-fsanitize=float-cast-overflow", "-fno-sanitize-recover=all", "-fstack-protector-all", "-D_FORTIFY_SOURCE=2", "-D_GLIBCXX_DEBUG", "-D_GLIBCXX_DEBUG_PEDANTIC", "-isystem", "pch", "-include-pch", "/Users/shashank/Documents/contest/pch/bits/stdc++.h.pch", "$(FNAME)", "-o", "$(FNOEXT)" } },
+				cpp = { exec = "g++", args = { "-DONPC", "-g" ,"-std=c++20", "-O2", "-Wkeyword-macro", "-Wmacro-redefined", "-Wall", "-Wextra", "-pedantic", "-Wshadow", "-Wformat=2", "-Wfloat-equal", "-Wconversion", "-Wshift-overflow", "-Wshorten-64-to-32", "-Wcast-qual", "-Wcast-align", "-Wno-unused-result", "-Wno-sign-conversion", "-fsanitize=address", "-fsanitize=undefined", "-fsanitize=float-divide-by-zero", "-fsanitize=float-cast-overflow", "-fno-sanitize-recover=all", "-fstack-protector-all", "-D_FORTIFY_SOURCE=2", "-D_GLIBCXX_DEBUG", "-D_GLIBCXX_DEBUG_PEDANTIC", "$(FNAME)", "-o", "$(FNOEXT)" } },
 				--cpp = { exec = "make", args = {}},
 				rust = { exec = "rustc", args = { "$(FNAME)" } },
 				java = { exec = "javac", args = { "$(FNAME)" } },

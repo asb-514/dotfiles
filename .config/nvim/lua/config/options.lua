@@ -31,7 +31,6 @@ vim.opt.iskeyword:append(":") -- Include ':' as part of a word when navigating
 vim.opt.foldmethod ="manual" -- syntax is also prossible
 --vim.opt.syntax = "on" -- Enable syntax highlighting
 vim.cmd([[set syntax=on]])
-vim.cmd [[highlight Normal guibg=NONE ctermbg=NONE]]
 
 --https://github.com/neovim/neovim/pull/17266
 vim.cmd([[
