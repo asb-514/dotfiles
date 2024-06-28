@@ -11,6 +11,8 @@ vim.api.nvim_set_keymap('n', '<Leader>v', ':vsplit | terminal<CR>', { noremap = 
 vim.api.nvim_set_keymap('n', 'H', ':bp<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'L', ':bn<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'Q', ':bd<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'N', ':tabnext<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'P', ':tabprevious<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>t', ':terminal<CR>a', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>k', ':bdelete<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>s', ':source ~/.config/nvim/init.lua<CR>', { noremap = true, silent = false })

@@ -28,8 +28,8 @@ return {
 			vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
 			-- set a vim motion to <Space> + f + b to search Open Buffers
 			vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind Existing [B]uffers' })
-
 			vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = '[G]it [F]iles' })
+
 		end
 	},
 	{
