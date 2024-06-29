@@ -1,7 +1,5 @@
 -- C/C++ customizations
 vim.cmd([[
-noremap <s-tab> <esc> ]}o
-inoremap <s-tab> <esc> ]}o
 noremap <F10> :lua mycompileAndRun("%<")<CR>
 noremap <F9> :lua mycompile("%<")<CR>
 noremap <F8> lua myrun_input("%<")<CR>

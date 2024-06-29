@@ -16,9 +16,8 @@ vim.api.nvim_set_keymap('n', 'P', ':tabprevious<cr>', { noremap = true, silent =
 vim.api.nvim_set_keymap('n', '<Leader>t', ':terminal<CR>a', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>k', ':bdelete<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>s', ':source ~/.config/nvim/init.lua<CR>', { noremap = true, silent = false })
+vim.api.nvim_set_keymap('i', '<C-j>', '<Esc> ]}o', { noremap = true })
 
 -- jk to escape in insert mode and visual mode
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true })
 vim.api.nvim_set_keymap('i', 'kj', '<Esc>', { noremap = true })
-
-
