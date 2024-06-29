@@ -1,4 +1,3 @@
-
 return{
 	'nvim-treesitter/nvim-treesitter',
 	lazy = true,
@@ -31,7 +30,12 @@ return{
 				-- Instead of true it can also be a list of languages
 				additional_vim_regex_highlighting = false,
 			},
-			indent = { enable = true }
+			indent = { enable = true },
+			vim.cmd([[
+			set foldmethod=expr
+			set foldexpr=nvim_treesitter#foldexpr()
+			set nofoldenable                     " Disable folding at startup.
+			]])
 		}
 	end
 }
