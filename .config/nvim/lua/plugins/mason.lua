@@ -2,9 +2,8 @@ return {
 	{
 		"williamboman/mason.nvim",
 		lazy = true,
-		
 		keys = {
-			{ "<leader>mi", "<cmd>Mason<cr>", desc = "Join Toggle" },
+			{ "<leader>mi", "<cmd>Mason<cr>", desc = "Mason Install" },
 		},
 		config = function()
 			-- setup mason with default properties
@@ -14,14 +13,14 @@ return {
 	-- mason lsp config utilizes mason to automatically ensure lsp servers you want installed are installed
 	{
 		"williamboman/mason-lspconfig.nvim",
-		lazy = true,
+		lazy = false,
 		dependencies = {
 			"williamboman/mason.nvim",
 		},
 		config = function()
 			-- ensure that we have lua language server, typescript launguage server, java language server, and java test language server are installed
 			require("mason-lspconfig").setup({
-				ensure_installed = { "jdtls", "lua_ls", "clangd", "pyright", "texlab", "marksman", "bashls", "stylua" },
+				ensure_installed = { "jdtls", "lua_ls", "clangd", "pyright", "texlab", "marksman", "bashls" },
 			})
 		end,
 	},
