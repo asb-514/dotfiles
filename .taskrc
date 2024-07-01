@@ -60,3 +60,11 @@ urgency.uda.priority.H.coefficient=4.2
 urgency.uda.priority.M.coefficient=2.1
 urgency.uda.priority.L.coefficient=-1.8
 urgency.uda.priority.N.coefficient=-3.6
+
+urgency.user.project.Study.coefficient=2
+urgency.user.project.Investing.coefficient=1.5
+urgency.user.project.Programming.coefficient=1
+
+urgency.waiting.coefficient=-4.0 # waiting task
+urgency.scheduled.coefficient=2
+urgency.active.coefficient=9
