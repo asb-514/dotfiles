@@ -4,7 +4,7 @@ return{
 		-- Use init for configuration, don't use the more common "config".
 		vim.cmd([[
 		syntax enable
-		let g:vimtex_view_method = 'skim'
+		let g:vimtex_view_method = 'sioyek'
 
 		" Or with a generic interface:
 		let g:vimtex_view_general_viewer = 'okular'
