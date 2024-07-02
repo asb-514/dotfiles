@@ -70,4 +70,3 @@ urgency.scheduled.coefficient=2
 urgency.active.coefficient=9
 context.Work.read=project:Atlassian
 context.Work.write=project:Atlassian
-context=Work
