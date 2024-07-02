@@ -68,3 +68,6 @@ urgency.user.project.Programming.coefficient=1
 urgency.waiting.coefficient=-4.0 # waiting task
 urgency.scheduled.coefficient=2
 urgency.active.coefficient=9
+context.Work.read=project:Atlassian
+context.Work.write=project:Atlassian
+context=Work
