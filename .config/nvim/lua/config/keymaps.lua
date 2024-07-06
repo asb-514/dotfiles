@@ -21,3 +21,4 @@ vim.api.nvim_set_keymap('i', '<C-j>', '<Esc> ]}o', { noremap = true })
 -- jk to escape in insert mode and visual mode
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true })
 vim.api.nvim_set_keymap('i', 'kj', '<Esc>', { noremap = true })
+vim.cmd("command! -buffer InlayToggle lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())")

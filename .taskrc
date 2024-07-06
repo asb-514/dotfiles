@@ -61,7 +61,7 @@ urgency.uda.priority.M.coefficient=2.1
 urgency.uda.priority.L.coefficient=-1.8
 urgency.uda.priority.N.coefficient=-3.6
 
-urgency.user.project.Study.coefficient=2
+urgency.user.project.Study.coefficient=4
 urgency.user.project.Investing.coefficient=1.5
 urgency.user.project.Programming.coefficient=1
 
@@ -74,4 +74,4 @@ context.Work.write=+work
 
 context.Personal.read=-work
 context.Personal.write=-work
-context=Work
+context=Personal
