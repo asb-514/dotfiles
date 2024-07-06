@@ -74,4 +74,3 @@ context.Work.write=+work
 
 context.Personal.read=-work
 context.Personal.write=-work
-context=Personal
