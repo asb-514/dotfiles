@@ -1,3 +1,6 @@
+function typstWatch()
+	vim.cmd(':silent !sioyek %<.pdf')
+end
 
 function myformat_buffer()
 	-- Save current cursor position

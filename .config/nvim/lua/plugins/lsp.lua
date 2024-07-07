@@ -13,10 +13,9 @@ return {
 			'SirVer/ultisnips',
 		},
 
-		config = function ()
-
+		config = function()
 			-- Set up nvim-cmp.
-			local cmp = require'cmp'
+			local cmp = require 'cmp'
 
 			cmp.setup({
 				snippet = {
@@ -42,13 +41,13 @@ return {
 				}),
 				sources = cmp.config.sources({
 					{ name = 'ultisnips' }, -- For ultisnips users.
-					{ name = 'nvim_lsp', max_item_count = 6},
+					{ name = 'nvim_lsp', max_item_count = 6 },
 					-- { name = 'vsnip' }, -- For vsnip users.
 					-- { name = 'luasnip' }, -- For luasnip users.
 					-- { name = 'snippy' }, -- For snippy users.
-					}, {
+				}, {
 					{ name = 'buffer' },
-						{ name = 'path' },
+					{ name = 'path' },
 				})
 			})
 
@@ -85,7 +84,7 @@ return {
 				buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 				-- Mappings.
-				local opts = { noremap=true, silent=true }
+				local opts = { noremap = true, silent = true }
 
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -99,7 +98,8 @@ return {
 				-- Workspace management
 				buf_set_keymap('n', '<Leader>lwa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
 				buf_set_keymap('n', '<Leader>lwr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-				buf_set_keymap('n', '<Leader>lwl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+				buf_set_keymap('n', '<Leader>lwl',
+					'<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 
 				buf_set_keymap('n', '<Leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 				buf_set_keymap('n', '<Leader>lf', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
@@ -137,7 +137,7 @@ return {
 			local capabilities = require('cmp_nvim_lsp').default_capabilities()
 			capabilities.offsetEncoding = "utf-8"
 
-			local servers = { "clangd","pyright","lua_ls","texlab", "marksman","bashls"}
+			local servers = { "clangd", "pyright", "lua_ls", "texlab", "marksman", "bashls", "typst_lsp" }
 			for _, lsp in ipairs(servers) do
 				local capabilities = require('cmp_nvim_lsp').default_capabilities()
 				capabilities.offsetEncoding = "utf-8"
@@ -149,6 +149,12 @@ return {
 					capabilities = capabilities,
 				}
 			end
+			require 'lspconfig'.typst_lsp.setup {
+				settings = {
+					exportPdf = "onType" -- Choose onType, onSave or never.
+					-- serverPath = "" -- Normally, there is no need to uncomment it.
+				}
+			}
 		end
 	}
 }
