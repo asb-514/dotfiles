@@ -1,5 +1,5 @@
 function typstWatch()
-	vim.cmd(':silent !sioyek %<.pdf')
+	vim.cmd(':terminal sioyek %<.pdf')
 end
 
 function myformat_buffer()
