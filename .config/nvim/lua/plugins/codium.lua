@@ -1,7 +1,7 @@
 -- Remove the `use` here if you're using folke/lazy.nvim.
 return  {
 	'Exafunction/codeium.vim',
-	--event = 'BufEnter',
+	event = 'BufEnter',
 	lazy = true,
 	config = function ()
 		-- Change '<C-g>' here to any keycode you like.

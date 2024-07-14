@@ -2,7 +2,6 @@
 
 colorscheme slate
 "colo sorbet
-highlight Normal cterm=bold
 
 
 "cpp,c custimization
@@ -185,3 +184,6 @@ if has("autocmd")
   \ endif
   augroup END
 endif
+
+
+highlight Normal guibg=NONE ctermbg=NONE
