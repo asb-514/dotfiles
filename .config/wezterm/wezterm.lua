@@ -1,11 +1,24 @@
-local wezterm = require 'wezterm'
-local config = {}
+local wezterm = require("wezterm")
+local config = wezterm.config_builder()
+
 --config.color_scheme = 'Jellybeans (Gogh)'
-config.font = wezterm.font ('CodeNewRoman Nerd Font', {weight = 'Bold'})
+--config.color_scheme = "Catppuccin Macchiato" -- or Macchiato, Frappe, Latte
+
+config.font = wezterm.font("CodeNewRoman Nerd Font Mono", { weight = "Regular" })
 config.font_size = 15
--- config.color_scheme = "Catppuccin Macchiato" -- or Macchiato, Frappe, Latte
-hide_tab_bar_if_only_one_tab = true
-config.window_background_opacity = 0.5
-config.macos_window_background_blur = 15
+
+config.window_padding = {
+	left = 0,
+	right = 0,
+	top = 0,
+	bottom = 0,
+}
+
+config.window_close_confirmation = "NeverPrompt"
+config.hide_tab_bar_if_only_one_tab = true
+config.window_decorations = "RESIZE"
+
+config.window_background_opacity = 0.82
+config.macos_window_background_blur = 25
 
 return config

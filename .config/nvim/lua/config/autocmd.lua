@@ -35,3 +35,11 @@ set shell=/bin/zsh
 autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
 ]])
 
+vim.api.nvim_create_autocmd({'BufEnter'}, {
+    pattern = "www.hackerrank.com_*.txt",
+    command = "set filetype=cpp",
+    pattern = "www.leetcode.com_*.txt",
+    command = "set filetype=cpp",
+    pattern = "www.codeforces.com_*.txt",
+    command = "set filetype=cpp",
+})

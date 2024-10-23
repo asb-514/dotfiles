@@ -6,7 +6,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
-
 require("lazy").setup({
 	spec = {
 		-- add LazyVim and import its plugins
@@ -16,7 +15,7 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.lang.Clangd" },
 		-- { import = "lazyvim.plugins.extras.lang.typescript" },
 		-- { import = "lazyvim.plugins.extras.lang.json" },
-		-- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+		--{ import = "lazyvim.plugins.extras.ui.mini-animate" },
 		-- import/override with your plugins
 		{ import = "plugins" },
 	},
@@ -28,7 +27,7 @@ require("lazy").setup({
 		-- have outdated releases, which may break your Neovim install.
 	},
 	install = { colorscheme = { "tokyonight", "habamax" } },
-	checker = { enabled = true }, -- automatically check for plugin updates
+	checker = { enabled = true, notify = false }, -- automatically check for plugin updates
 	performance = {
 		rtp = {
 			-- disable some rtp plugins
@@ -39,7 +38,7 @@ require("lazy").setup({
 				-- "netrwPlugin",
 				"tarPlugin",
 				"tohtml",
-				"tutor",
+				-- "tutor",
 				"zipPlugin",
 			},
 		},

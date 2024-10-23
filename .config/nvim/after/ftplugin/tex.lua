@@ -14,3 +14,4 @@ au!
 au User VimtexEventViewReverse call s:TexFocusVim()
 augroup END
 ]])
+vim.cmd([[set spell]])

@@ -1,3 +1,8 @@
+### Added by Codeium. These lines cannot be automatically removed if modified
+if command -v termium > /dev/null 2>&1; then
+  eval "$(termium shell-hook show pre)"
+fi
+### End of Codeium integration
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -130,9 +135,12 @@ alias net='python3.10 ~/Documents/scripts/netaccess.py'
 #alias python=python3.10
 alias v='vim'
 alias n='nvim'
-alias iw3m='W3M_IMG2SIXEL=/opt/homebrew/bin/img2sixel w3m -sixel -o display_image=1 '
+alias lz='nvim-lazy'
+alias iw3m='W3M_IMG2SIXEL=/opt/homebrew/bin/img2sixel w3m -sixel -o display_image=1 -cookie'
 alias tt='taskwarrior-tui'
-alias gc='taskwarrior-tui'
+alias ls='eza --icons=always --color=always --group-directories-first'
+alias tb='cat ~/Documents/Library/timetable | w3m -dump -T text/html'
+alias mtb='cat ~/Documents/Library/mytimetable | w3m -dump -T text/html'
 
 alias matlab='~/Applications/MATLAB_R2023b.app/bin/matlab -nodesktop'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -160,8 +168,8 @@ alias nvim-lazy="NVIM_APPNAME=lazyvi nvim"
 
 # cf-tools aliases
 #
-#
-contest_id="1981"
+
+contest_id="1920"
 alias sub='cf submit -f main.cpp $contest_id'
 alias lis='cf list $contest_id'
 alias wch='cf watch all $contest_id'
@@ -181,5 +189,23 @@ export PATH="/opt/homebrew/opt/task@2/bin:$PATH"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
+### Added by Codeium. These lines cannot be automatically removed if modified
+if command -v termium > /dev/null 2>&1; then
+  eval "$(termium shell-hook show post)"
+fi
+### End of Codeium integration
+source ~/default_python/bin/activate
 
 
+export LIBRARY_PATH=/opt/homebrew/Cellar/gcc/14.2.0/lib/gcc/14:$LIBRARY_PATH
+
+alias ojcomp="g++-14 -std=c++20 -O3 -o main"
+alias dcomp="g++ -DONPC -g -std=c++20 -O2 -Wall -Wextra -pedantic -fsanitize=address -fsanitize=undefined -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize-recover=all -fstack-protector-all -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -o main"
+#stress testing
+alias stress_testing="cp -r ~/Documents/contest/stress_test/* ./"
+
+alias gmake='make -f ~/Documents/contest/Makefile'
+alias ojt='oj test --compare-mode ignore-spaces -c ./main'
+alias ojs='oj submit --guess-cxx-latest main.cpp'
+export CPLUS_INCLUDE_PATH="$HOME/atcoder-library:$CPLUS_INCLUDE_PATH"
+alias fullexpand="python3 $HOME/atcoder-library/expander.py"

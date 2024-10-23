@@ -1,6 +1,9 @@
 snippet snips "all snippets"
 /*
 snips
+pbds
+prefsum
+runningmedian
 segtre
 beg
 minimal
@@ -42,6 +45,88 @@ deb
 */
 endsnippet
 
+snippet prefsum "prefix sum"
+struct PrefixSum {
+	vector<ll> pref;
+	PrefixSum(vector<ll>& a)
+	{
+		pref.resize(sz(a) + 1);
+		pref[0] = 0;
+		for (int i = 0; i < sz(a); i++) {
+			pref[i + 1] = pref[i] + a[i];
+		}
+	}
+
+	ll get(int l, int r) // [l, r)
+	{
+		return pref[r] - pref[l];
+	}
+};
+endsnippet
+
+snippet pbds "pbds"
+// Put this right below namespace std
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+template<class T> using ordered_set =tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
+// order_of_key (K): Number of items strictly smaller than K. (returns an integer)
+// find_by_order(k): Kth element in a Set (counting from zero). (returns a iterator)
+endsnippet
+snippet runningmedian "calculate running median"
+// MaxSet
+multiset<int, greater<int>> l;
+// MinSet
+multiset<int> r;
+
+void balance()
+{
+	if (l.size() > r.size() + 1) {
+		r.insert(*l.begin());
+		l.erase(l.begin());
+	} else if (r.size() > l.size() + 1) {
+		l.insert(*r.begin());
+		r.erase(r.begin());
+	}
+
+	return;
+}
+void insert(int x)
+{
+	if (l.empty() || *l.begin() > x)
+		l.insert(x);
+	else
+		r.insert(x);
+
+	balance();
+
+	return;
+}
+
+int get()
+{
+	if (l.size() > r.size())
+		return (*l.begin());
+	else if (r.size() > l.size())
+		return (*r.begin());
+
+	return *l.begin();
+}
+
+void del(int x)
+{
+	// Removing element
+	auto itl = l.find(x);
+	auto itr = r.find(x);
+
+	if (itl != l.end())
+		l.erase(itl);
+	else
+		r.erase(itr);
+
+	balance();
+}
+endsnippet
 snippet segtre "my segment tree"
 function<ll(ll, ll)> merge = [&](ll _one, ll _two) {
         return _one + _two;
@@ -88,30 +173,33 @@ function<ll(ll, ll)> merge = [&](ll _one, ll _two) {
     };
 endsnippet
 snippet beg "template"
-#ifndef ONPC
 #include <bits/stdc++.h>
-#endif
-
 #define sz(a) ((int)((a).size()))
-
+#define rep(i, a, b) for (int i = a; i < (b); ++i)
+#define all(x) (x).begin(), (x).end()
 using namespace std;
-
 typedef long long ll;
 typedef long double ld;
+typedef pair<ll, ll> pii;
+typedef vector<ll> vi;
+
+#define nl "\n";
+
 #ifdef ONPC
-#include "../debug.h"
+#include <bits/debug.h>
+#define dbg(...) cerr << __LINE__ << ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__)
+#define dbgarr(...) cerr << __LINE__ << ": [", __DEBUG_UTIL__::printerArr(#__VA_ARGS__, __VA_ARGS__)
 #else
 #define dbg(...)
+#define dbgarr(...)
 #endif
-using namespace std;
-#include<vector>
-#include<string>
 
 int solve()
 {
-	$0
-	return 0;
+    $0
+    return 0;
 }
+
 
 int32_t main()
 {
@@ -130,7 +218,7 @@ int32_t main()
     }
 #ifdef ONPC
     cerr << endl
-         << "finished in " << clock() * 1.0 / CLOCKS_PER_SEC << " sec" << endl;
+         << "finished in " << (ld)clock() / CLOCKS_PER_SEC << " sec" << endl;
 #endif
 }
 endsnippet

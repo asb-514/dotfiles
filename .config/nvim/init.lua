@@ -1,4 +1,4 @@
--- lazy plugin 
+-- lazy plugin
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	vim.fn.system({
@@ -14,7 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Adding fzf to runtime path
 vim.opt.runtimepath:append("/opt/homebrew/opt/fzf")
-
 
 require("config.keymaps")
 require("lazy").setup("plugins")

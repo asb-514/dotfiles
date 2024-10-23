@@ -1,11 +1,16 @@
 return {
-	'xeluxee/competitest.nvim',
+	"xeluxee/competitest.nvim",
 	lazy = true,
-	ft = {"cpp"},
-	keys = {{"<leader>r","<cmd>CompetiTest run<CR>",mode = "n"},{"<leader>c","<cmd>CompetiTest receive contest<CR>",mode = "n"},{"<leader>p","<cmd>CompetiTest receive problem<CR>",mode = "n"}},
-	dependencies = 'MunifTanjim/nui.nvim',
-	config = function() 
-		require('competitest').setup {
+	ft = { "cpp" },
+	keys = {
+		{ "<leader>r", "<cmd>CompetiTest run<CR>", mode = "n" },
+		{ "<leader>c", "<cmd>CompetiTest receive contest<CR>", mode = "n" },
+		{ "<leader>p", "<cmd>CompetiTest receive problem<CR>", mode = "n" },
+		{ "<F5>", "<cmd>ParsePython<CR>", mode = "n" },
+	},
+	dependencies = "MunifTanjim/nui.nvim",
+	config = function()
+		require("competitest").setup({
 			local_config_file_name = ".competitest.lua",
 
 			floating_border = "rounded",
@@ -95,8 +100,30 @@ return {
 			compile_directory = ".",
 			compile_command = {
 				c = { exec = "gcc", args = { "-Wall", "$(FNAME)", "-o", "$(FNOEXT)" } },
-				cpp = { exec = "g++", args = { "-DONPC", "-g" ,"-std=c++20", "-O2", "-Wkeyword-macro", "-Wmacro-redefined", "-Wall", "-Wextra", "-pedantic", "-Wshadow", "-Wformat=2", "-Wfloat-equal", "-Wconversion", "-Wshift-overflow", "-Wshorten-64-to-32", "-Wcast-qual", "-Wcast-align", "-Wno-unused-result", "-Wno-sign-conversion", "-fsanitize=address", "-fsanitize=undefined", "-fsanitize=float-divide-by-zero", "-fsanitize=float-cast-overflow", "-fno-sanitize-recover=all", "-fstack-protector-all", "-D_FORTIFY_SOURCE=2", "-D_GLIBCXX_DEBUG", "-D_GLIBCXX_DEBUG_PEDANTIC", "$(FNAME)", "-o", "$(FNOEXT)" } },
-				--cpp = { exec = "make", args = {}},
+				--cpp = {
+				--	exec = "g++",
+				--	args = {
+				--		"-DONPC",
+				--		"-g",
+				--		"-std=c++20",
+				--		"-O2",
+				--		"-Wall",
+				--		"-Wextra",
+				--		"-pedantic",
+				--		"-fsanitize=address",
+				--		"-fsanitize=undefined",
+				--		"-fsanitize=float-divide-by-zero",
+				--		"-fsanitize=float-cast-overflow",
+				--		"-fno-sanitize-recover=all",
+				--		"-fstack-protector-all",
+				--		"-D_GLIBCXX_DEBUG",
+				--		"-D_GLIBCXX_DEBUG_PEDANTIC",
+				--		"$(FNAME)",
+				--		"-o",
+				--		"$(FNOEXT)",
+				--	},
+				--},
+				cpp = { exec = "make", args = {"-f","/Users/shashank/Documents/contest/Makefile"}},
 				rust = { exec = "rustc", args = { "$(FNAME)" } },
 				java = { exec = "javac", args = { "$(FNAME)" } },
 			},
@@ -105,7 +132,7 @@ return {
 				c = { exec = "./$(FNOEXT)" },
 				cpp = { exec = "./$(FNOEXT)" },
 				rust = { exec = "./$(FNOEXT)" },
-				python = { exec = "python", args = { "$(FNAME)" } },
+				python = { exec = "python3", args = { "$(FNAME)" } },
 				java = { exec = "java", args = { "$(FNOEXT)" } },
 			},
 			multiple_testing = -1,
@@ -113,36 +140,23 @@ return {
 			output_compare_method = "squish",
 			view_output_diff = false,
 
-			--testcases_directory = ".",
-			--testcases_use_single_file = false,
-			--testcases_auto_detect_storage = true,
-			--testcases_single_file_format = "$(FNOEXT).testcases",
-			--testcases_input_file_format = "$(FNOEXT)_input$(TCNUM).txt",
-			--testcases_output_file_format = "$(FNOEXT)_output$(TCNUM).txt",
 			testcases_use_single_file = false,
-			--testcases_auto_detect_storage = true,
-			--testcases_single_file_format = "$(FNOEXT).testcases",
 
-			-- best so far 
+			-- best so far
 			testcases_directory = "test",
 			testcases_input_file_format = "sample-$(TCNUM).in",
 			testcases_output_file_format = "sample-$(TCNUM).out",
-			-- if using cf tools, enable the below config;
-			-- testcases_directory = ".",
-			-- testcases_input_file_format = "in$(TCNUM).txt",
-			-- testcases_output_file_format = "ans$(TCNUM).txt",
 
 			companion_port = 27121,
 			receive_print_message = true,
-			--template_file = false,
-			template_file = "~/Documents/contest/snippets/template.$(FEXT)",
+			template_file = "$(HOME)/Documents/contest/snippets/template.$(FEXT)",
 			evaluate_template_modifiers = true,
 			date_format = "%c",
 			received_files_extension = "cpp",
-			received_problems_path = "$(JAVA_TASK_CLASS)/main.$(FEXT)",
+
+			received_problems_path = "$(HOME)/Documents/contest/$(JUDGE)/$(JAVA_TASK_CLASS)/main.$(FEXT)",
 			received_problems_prompt_path = false,
-			received_contests_directory = "$(CWD)",
-			--received_contests_problems_path = "$(PROBLEM).$(FEXT)",
+			received_contests_directory = "$(HOME)/Documents/contest/$(JUDGE)/$(CONTEST)",
 			received_contests_problems_path = "$(JAVA_TASK_CLASS)/main.$(FEXT)",
 			received_contests_prompt_directory = false,
 			received_contests_prompt_extension = false,
@@ -150,12 +164,38 @@ return {
 			open_received_contests = true,
 			replace_received_testcases = false,
 			-- Mapping for running CompetiTest
-			vim.api.nvim_set_keymap('n', '<leader>r', "<cmd>CompetiTest run<CR>", { noremap = true, silent = true }),
-			vim.api.nvim_set_keymap('n', '<leader>c', "<cmd>CompetiTest receive contest<CR>", { noremap = true, silent = true }),
-			vim.api.nvim_set_keymap('n', '<leader>p', "<cmd>CompetiTest receive problem<CR>", { noremap = true, silent = true }),
+			vim.api.nvim_set_keymap("n", "<leader>r", "<cmd>CompetiTest run<CR>", { noremap = true, silent = true }),
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>c",
+				"<cmd>CompetiTest receive contest<CR>",
+				{ noremap = true, silent = true }
+			),
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>p",
+				"<cmd>CompetiTest receive problem<CR>",
+				{ noremap = true, silent = true }
+			),
 
 			-- Mapping for adding CompetiTest testcase
 			--vim.api.nvim_set_keymap('n', '<leader>t', "<cmd>:CompetiTest add_testcase<CR>", { noremap = true, silent = false }),
-		}
-	end
+			--
+			vim.api.nvim_create_user_command("ParsePython", function()
+				require("competitest").setup({
+					received_files_extension = "py",
+				})
+				vim.cmd("CompetiTest receive problem")
+				require("competitest").setup({
+					received_files_extension = "cpp",
+				})
+			end, {}),
+			vim.api.nvim_set_keymap(
+				"n",
+				"<F5>",
+				"<cmd>ParsePython<CR>",
+				{ noremap = true, silent = true }
+			),
+		})
+	end,
 }
