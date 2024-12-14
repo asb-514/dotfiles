@@ -1,1 +1,0 @@
-/Users/shashank/.dotfiles/.config/nvim/lua/config/autocmd.lua

@@ -1,8 +1,3 @@
-### Added by Codeium. These lines cannot be automatically removed if modified
-if command -v termium > /dev/null 2>&1; then
-  eval "$(termium shell-hook show pre)"
-fi
-### End of Codeium integration
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -20,12 +15,10 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 # # Path to your oh-my-zsh installation.
 export LIBS="-L/opt/homebrew/Cellar/gmp/6.3.0/lib"
 export CPPFLAGS="-I/opt/homebrew/Cellar/gmp/6.3.0"
-#export PATH="/opt/homebrew/Cellar/emacs-plus@28/28.2/bin:$PATH"
-export PATH="$HOME/.config/emacs/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
-export PATH="$HOME/.emacs.d/bin:$PATH"
-PATH="/opt/homebrew/opt/gnu-time/libexec/gnubin:$PATH"
-# 
+#export PATH="$HOME/.config/emacs/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/opt/homebrew/opt/gnu-time/libexec/gnubin:$PATH"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -108,14 +101,19 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+alias nvim-normal="NVIM_APPNAME=bnvim nvim"
+alias neovide-lazy="NVIM_APPNAME=lazyvi neovide --frame transparent"
+alias nl="neovide --frame transparent"
+
 # Preferred editor for local and remote sessions
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='nvim'
- else
-   export EDITOR='nvim'
- fi
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-#export FZF_DEFAULT_OPTS=‘—height=40% —preview=“cat {}” —preview-window=right:60%:wrap’
+if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR="nvim"
+else
+   export EDITOR="nvim"
+fi
+
+source <(fzf --zsh)
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -135,14 +133,12 @@ alias net='python3.10 ~/Documents/scripts/netaccess.py'
 #alias python=python3.10
 alias v='vim'
 alias n='nvim'
-alias lz='nvim-lazy'
 alias iw3m='W3M_IMG2SIXEL=/opt/homebrew/bin/img2sixel w3m -sixel -o display_image=1 -cookie'
-alias tt='taskwarrior-tui'
 alias ls='eza --icons=always --color=always --group-directories-first'
 alias tb='cat ~/Documents/Library/timetable | w3m -dump -T text/html'
 alias mtb='cat ~/Documents/Library/mytimetable | w3m -dump -T text/html'
+alias p='cd ..'
 
-alias matlab='~/Applications/MATLAB_R2023b.app/bin/matlab -nodesktop'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 export TERM=xterm-256color
 
@@ -163,16 +159,9 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
 fi
 
-alias nvim-lazy="NVIM_APPNAME=lazyvi nvim"
 
 
-# cf-tools aliases
-#
 
-contest_id="1920"
-alias sub='cf submit -f main.cpp $contest_id'
-alias lis='cf list $contest_id'
-alias wch='cf watch all $contest_id'
 eval "$(zoxide init zsh)"
 
 
@@ -189,15 +178,11 @@ export PATH="/opt/homebrew/opt/task@2/bin:$PATH"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-### Added by Codeium. These lines cannot be automatically removed if modified
-if command -v termium > /dev/null 2>&1; then
-  eval "$(termium shell-hook show post)"
-fi
-### End of Codeium integration
 source ~/default_python/bin/activate
 
 
-export LIBRARY_PATH=/opt/homebrew/Cellar/gcc/14.2.0/lib/gcc/14:$LIBRARY_PATH
+# export LIBRARY_PATH=/opt/homebrew/Cellar/gcc/14.2.0_1/lib/gcc/14:$LIBRARY_PATH
+export LIBRARY_PATH=$HOME/Documents/contest/pch/:$LIBRARY_PATH
 
 alias ojcomp="g++-14 -std=c++20 -O3 -o main"
 alias dcomp="g++ -DONPC -g -std=c++20 -O2 -Wall -Wextra -pedantic -fsanitize=address -fsanitize=undefined -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize-recover=all -fstack-protector-all -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -o main"
@@ -206,6 +191,21 @@ alias stress_testing="cp -r ~/Documents/contest/stress_test/* ./"
 
 alias gmake='make -f ~/Documents/contest/Makefile'
 alias ojt='oj test --compare-mode ignore-spaces -c ./main'
+alias ojtp='oj test --compare-mode ignore-spaces -c "python3 main.py"'
+
 alias ojs='oj submit --guess-cxx-latest main.cpp'
+alias nrun='gmake && ./main < inpmain'
 export CPLUS_INCLUDE_PATH="$HOME/atcoder-library:$CPLUS_INCLUDE_PATH"
 alias fullexpand="python3 $HOME/atcoder-library/expander.py"
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
+source /Users/shashank/.config/broot/launcher/bash/br

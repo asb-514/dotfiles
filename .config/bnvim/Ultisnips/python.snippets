@@ -1,0 +1,69 @@
+snippet ya "print yes"
+print("Yes")
+$0
+endsnippet
+snippet na "print no"
+print("No")
+$0
+endsnippet
+snippet inp "Input functions"
+import sys
+
+input = sys.stdin.readline
+
+
+############ ---- Input Functions ---- ############
+def inp():
+    return int(input())
+
+
+def inlt():
+    return list(map(int, input().split()))
+
+
+def insr():
+    s = input()
+    return list(s[: len(s) - 1])
+
+
+def invr():
+    return map(int, input().split())
+endsnippet
+
+snippet beg "boiler plate"
+import sys
+
+input = sys.stdin.readline
+
+
+############ ---- Input Functions ---- ############
+def inp():
+    return int(input())
+
+
+def inlt():
+    return list(map(int, input().split()))
+
+
+def insr():
+    s = input()
+    return list(s[: len(s) - 1])
+
+
+def invr():
+    return map(int, input().split())
+
+
+def solve():
+    $0
+
+
+def main():
+    t = inp()
+    for _ in range(t):
+        solve()
+
+
+if __name__ == "__main__":
+    main()
+endsnippet
