@@ -2,6 +2,17 @@ function typstWatch()
 	vim.cmd(":terminal sioyek %<.pdf")
 end
 
+function myformat_buffer()
+	-- Save current cursor position
+	local cursor_pos = vim.fn.getcurpos()
+
+	-- Format the buffer
+	vim.api.nvim_command("normal gg=G")
+
+	-- Restore cursor position
+	vim.fn.setpos(".", cursor_pos)
+end
+
 -- Define a Lua function to compile the code
 function mycompile(filename)
 	local path_to_file = vim.fn.expand("%:p")
@@ -63,4 +74,16 @@ function OpenMainPyFilesSorted()
 		vim.cmd("edit " .. root_dir .. "/" .. file)
 	end
 	vim.cmd("bn")
+end
+
+-- Define a function to update the status line for specific file types
+function myupdate_statusline()
+	if vim.bo.filetype == "CompetiTest" then
+		vim.wo.statusline = " "
+	end
+end
+
+function Library_file()
+	local fzf = require("fzf-lua")
+	fzf.files({ cwd = "~/Documents/contest/Library/" })
 end

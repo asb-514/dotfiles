@@ -1,58 +1,47 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.lazy")
+-- lazy plugin
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
+end
+vim.opt.rtp:prepend(lazypath)
 
--- Optionally, override specific formatter options
-require("conform").setup({
-	formatters_by_ft = {
-		c = { "clang_format" },
-		cpp = { "clang_format" },
-		latex = { "latexindent" },
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
+-- Adding fzf to runtime path
+vim.opt.runtimepath:append("/opt/homebrew/opt/fzf")
+require("config.keymaps")
+require("lazy").setup({
+	spec = {
+		{ import = "plugins" },
 	},
-	formatters = {
-		clang_format = {
-			args = { "--style=file:/Users/shashank/.dotfiles/.config/nvim/.clang-format", "--fallback-style=WebKit" }, -- Override clang-format args
+	install = { colorscheme = { "retrobox" } },
+	performance = {
+		rtp = {
+			-- disable some rtp plugins
+			disabled_plugins = {
+				"gzip",
+				"matchit",
+				"matchparen",
+				--"netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
 		},
 	},
 })
+require("config.options")
+require("config.autocmd")
 require("config.functions")
-if vim.g.neovide then
-	--vim.cmd("Lazy load solarized.nvim")
-	--vim.cmd.colorscheme("solarized")
-end
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = "*hackerrank.com*.txt",
-	command = "set filetype=cpp",
-})
-
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = "*codeforces.com*.txt",
-	command = "set filetype=cpp",
-})
-
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = "*leetcode.com*.txt",
-	command = "set filetype=cpp",
-})
-
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = "*codechef.com*.txt",
-	command = "set filetype=cpp",
-})
-
-local ls = require("luasnip")
-
-vim.keymap.set({ "i", "s" }, "<C-l>", function()
-	ls.jump(1)
-end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-h>", function()
-	ls.jump(-1)
-end, { silent = true })
-
-vim.keymap.set({ "i", "s" }, "<C-y>", function()
-	if ls.choice_active() then
-		ls.change_choice(1)
-	end
-end, { silent = true })
-vim.api.nvim_create_user_command("LuaSnipEdit", function()
-	require("luasnip.loaders").edit_snippet_files()
-end, { nargs = "*" })

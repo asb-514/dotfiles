@@ -1,1 +1,12 @@
-/Users/shashank/.dotfiles/.config/bnvim/lua/config/options.lua
+vim.opt.ignorecase = true -- Ignore case when searching
+vim.opt.errorbells = false -- Disable error bells
+vim.opt.swapfile = false -- Disable swap file creation
+vim.opt.scrolloff = 15 -- Number of lines to keep above and below the cursor while scrolling
+vim.opt.shiftwidth = 4 -- Number of spaces for each level of indentation
+vim.opt.tabstop = 4 -- Number of spaces that <Tab> counts for
+vim.opt.relativenumber = true -- Show relative line numbers
+vim.opt.number = true -- Show line numbers
+vim.opt.splitbelow = true -- Open new splits below the current one
+vim.opt.splitright = true -- Open new splits to the right of the current one
+vim.opt.wrap = false -- Disable line wrapping
+vim.opt.signcolumn = "yes"

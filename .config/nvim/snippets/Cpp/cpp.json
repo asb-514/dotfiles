@@ -1,0 +1,85 @@
+{
+	"Pbds": {
+		"prefix": "pbds",
+		"body": [
+			"// Put this right below namespace std",
+			"#include <ext/pb_ds/assoc_container.hpp>",
+			"#include <ext/pb_ds/tree_policy.hpp>",
+			"using namespace __gnu_pbds;",
+			"template<class T> using ordered_set =tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;",
+			"// order_of_key (K): Number of items strictly smaller than K. (returns an integer)",
+			"// find_by_order(k): Kth element in a Set (counting from zero). (returns a iterator)"
+		]
+	},
+	"Generate Tree": {
+		"prefix": "gentree",
+		"body": [
+			"int n = rnd.next(5, 6);",
+			"int t = rnd.next(-3, 3);",
+			"",
+			"vector<int> p(n);",
+			"for (int i = 1; i < n; i++)",
+			"	p[i] = rnd.wnext(i, t);",
+			"",
+			"vector<int> perm = rnd.perm(n);",
+			"",
+			"vector<pair<int, int>> edges;",
+			"	for (int i = 1; i < n; i++)",
+			"if (rnd.next(2))",
+			"	edges.push_back(make_pair(perm[i], perm[p[i]]));",
+			"else",
+			"	edges.push_back(make_pair(perm[p[i]], perm[i]));",
+			"",
+			"shuffle(edges.begin(), edges.end());",
+			"println(n);",
+			"for (auto edge : edges)",
+			"	println(edge.first + 1, edge.second + 1);"
+		],
+		"description": "Generate tree randomly"
+	},
+	"Graph": {
+		"prefix": "graph",
+		"body": [
+			"const int N =312345; // chech if input is > N",
+			"",
+			"vector<int> g[N];",
+			"int used[N];",
+			"",
+			"int solve() {",
+			"	int n;",
+			"	int m;",
+			"	cin >> n >> m;",
+			"	for (int i = 0; i < n; i++) {",
+			"		used[i] = 0;",
+			"		g[i].clear();",
+			"	}",
+			"	for (int i = 0; i < m; i++) {",
+			"		int x, y;",
+			"		cin >> x >> y;",
+			"		x--;",
+			"		y--;",
+			"		g[x].push_back(y);",
+			"		g[y].push_back(x);",
+			"	}",
+			"	$0",
+			"	return 1;",
+			"}"
+		],
+		"description": "Graph template"
+	},
+	"Check Function": {
+		"prefix": "table",
+		"body": [
+			"ll dx[] = {0, 1, 0, -1};",
+			"ll dy[] = {1, 0, -1, 0};",
+			"ll n, m; // DON'T MAKE THEM IN MAIN",
+			"",
+			"bool check(ll x, ll y) {",
+			"	return x >= 0 && x < n && y >= 0 && y < m;",
+			"}"
+		],
+		"description": "Checking Function"
+	}
+
+}
+

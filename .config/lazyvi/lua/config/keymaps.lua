@@ -1,7 +1,3 @@
--- Set mapleader to "<Space>"
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-
 -- Key mappings
 vim.api.nvim_set_keymap("n", "<LocalLeader>wq", ":wq<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<LocalLeader>q", ":q<CR>", { noremap = true, silent = true })
@@ -23,3 +19,4 @@ vim.api.nvim_set_keymap(
 -- jk to escape in insert mode and visual mode
 vim.api.nvim_set_keymap("i", "jk", "<Esc>", { noremap = true })
 vim.api.nvim_set_keymap("i", "kj", "<Esc>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>fl", ":lua Library_file()<CR>", { desc = "Fzf Library Files" })

@@ -1,9 +1,5 @@
 {
     "diagnostics.globals": [
-        "typstWatch",
-        "myformat_buffer",
-        "mycompile",
-        "myrun_input",
-        "mycompileAndRun"
+        "received_files_extension"
     ]
 }
