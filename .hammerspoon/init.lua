@@ -50,7 +50,7 @@ end)
 hs.alert.show("Config loaded")
 
 hs.hotkey.bind({ "alt" }, "t", function()
-	hs.application.launchOrFocus("WezTerm")
+	hs.application.launchOrFocus("kitty")
 end)
 hs.hotkey.bind({ "alt" }, "s", function()
 	hs.application.launchOrFocus("Safari")

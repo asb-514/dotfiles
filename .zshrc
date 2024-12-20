@@ -101,9 +101,9 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-alias nvim-normal="NVIM_APPNAME=bnvim nvim"
-alias neovide-lazy="NVIM_APPNAME=lazyvi neovide --frame transparent"
-alias nl="neovide --frame transparent"
+alias lz="NVIM_APPNAME=lazyvi nvim"
+alias nl="NVIM_APPNAME=lazyvi neovide --frame transparent"
+alias nt="neovide --frame transparent"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -209,3 +209,5 @@ function y() {
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 source /Users/shashank/.config/broot/launcher/bash/br
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+source $HOME/.cargo/env
