@@ -65,7 +65,7 @@ return {
 			compile_directory = ".",
 			compile_command = {
 				c = { exec = "gcc", args = { "-Wall", "$(FNAME)", "-o", "$(FNOEXT)" } },
-				cpp = { exec = "make", args = { "-f", "/Users/shashank/Documents/contest/Makefile" } },
+				cpp = { exec = "make", args = {} },
 			},
 			running_directory = ".",
 			run_command = {

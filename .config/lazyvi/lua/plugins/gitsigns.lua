@@ -7,4 +7,5 @@ return {
 		{ "<leader>gt", ":Gitsigns toggle_signs<CR>" },
 		{ "<leader>gb", ":Gitsigns toggle_current_line_blame<CR>" },
 	},
+	opts = {},
 }

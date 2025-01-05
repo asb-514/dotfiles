@@ -1,3 +1,4 @@
+vim.cmd("colorscheme wildcharm")
 -- lazy plugin
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -14,12 +15,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	end
 end
 vim.opt.rtp:prepend(lazypath)
-
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-
--- Adding fzf to runtime path
-vim.opt.runtimepath:append("/opt/homebrew/opt/fzf")
 require("config.keymaps")
 require("lazy").setup({
 	spec = {
@@ -42,6 +37,8 @@ require("lazy").setup({
 		},
 	},
 })
+
 require("config.options")
 require("config.autocmd")
 require("config.functions")
+vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")

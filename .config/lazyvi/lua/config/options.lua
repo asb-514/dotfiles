@@ -62,5 +62,5 @@ highlight WinSeperator guibg=None
 
 --Lazyvim Settings.
 vim.g.snacks_animate = false
-vim.g.lazyvim_blink_main = true
+vim.g.lazyvim_blink_main = false
 -- vim folds, check the tree sitter plugin

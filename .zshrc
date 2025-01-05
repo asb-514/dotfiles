@@ -1,18 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-# # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.  # Initialization code that may require console input (password prompts, [y/n]
-# # confirmations, etc.) must go above this block; everything else may go below.
-# 
-# # If you come from bash you might have to change your $PATH.
-# # export PATH=$HOME/bin:/usr/local/bin:$PATH
-# 
-# # Path to your oh-my-zsh installation.
 export LIBS="-L/opt/homebrew/Cellar/gmp/6.3.0/lib"
 export CPPFLAGS="-I/opt/homebrew/Cellar/gmp/6.3.0"
 export ZSH="$HOME/.oh-my-zsh"
@@ -23,8 +8,7 @@ export PATH="/opt/homebrew/opt/gnu-time/libexec/gnubin:$PATH"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="random"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -102,8 +86,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 alias lz="NVIM_APPNAME=lazyvi nvim"
+alias rv="NVIM_APPNAME=nativevim nvim"
+alias v="NVIM_APPNAME=nvim-vim nvim"
 alias nl="NVIM_APPNAME=lazyvi neovide --frame transparent"
-alias nt="neovide --frame transparent"
+alias nv="NVIM_APPNAME=nvim-vim neovide --frame transparent"
+alias nn="neovide --frame transparent"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -122,16 +109,11 @@ source <(fzf --zsh)
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-# alias vim='nvim'
 alias comp='cd ~/Documents/contest'
 alias lib='cd ~/myicloud/Library'
 alias list='nvim ~/Library/Mobile\ Documents/com~apple~CloudDocs/Library/tasks.txt'
 alias net='python3.10 ~/Documents/scripts/netaccess.py'
 #alias python=python3.10
-alias v='vim'
 alias n='nvim'
 alias iw3m='W3M_IMG2SIXEL=/opt/homebrew/bin/img2sixel w3m -sixel -o display_image=1 -cookie'
 alias ls='eza --icons=always --color=always --group-directories-first'
@@ -139,7 +121,6 @@ alias tb='cat ~/Documents/Library/timetable | w3m -dump -T text/html'
 alias mtb='cat ~/Documents/Library/mytimetable | w3m -dump -T text/html'
 alias p='cd ..'
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 export TERM=xterm-256color
 
 vterm_printf() {
@@ -159,16 +140,8 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
 fi
 
-
-
-
 eval "$(zoxide init zsh)"
 
-
-
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="$(brew --prefix)/opt/util-linux/sbin:$(brew --prefix)/opt/util-linux/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
@@ -178,7 +151,7 @@ export PATH="/opt/homebrew/opt/task@2/bin:$PATH"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-source ~/default_python/bin/activate
+# source ~/default_python/bin/activate
 
 
 # export LIBRARY_PATH=/opt/homebrew/Cellar/gcc/14.2.0_1/lib/gcc/14:$LIBRARY_PATH
@@ -211,3 +184,4 @@ export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 source /Users/shashank/.config/broot/launcher/bash/br
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 source $HOME/.cargo/env
+alias gdb="lldb"
