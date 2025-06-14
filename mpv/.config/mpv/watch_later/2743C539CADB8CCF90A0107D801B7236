@@ -1,0 +1,6 @@
+start=997.594079
+speed=100.000000
+af=@skiptosilence:lavfi=graph=%32%silencedetect=noise=-40dB:d=0.65
+vid=no
+sub-visibility=no
+secondary-sub-visibility=no
