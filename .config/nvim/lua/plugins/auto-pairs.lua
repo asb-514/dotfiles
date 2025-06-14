@@ -1,1 +1,0 @@
-../../../lazyvi/lua/plugins/auto-pairs.lua
